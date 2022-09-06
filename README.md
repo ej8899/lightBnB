@@ -1,2 +1,0 @@
-# lightBnB
-LHL project - LighthouseBnB
