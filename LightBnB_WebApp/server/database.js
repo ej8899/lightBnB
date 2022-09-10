@@ -1,6 +1,20 @@
 const properties = require('./json/properties.json');
 const users = require('./json/users.json');
 
+// connect to PSQL database lightbnb
+const { Pool } = require('pg');
+const pool = new Pool({
+  user: 'vagrant',
+  password: '123',
+  host: 'localhost',
+  database: 'lightbnb'
+});
+
+// test PSQL connection
+// pool.query(`SELECT title FROM properties LIMIT 10;`).then(response => {console.log(response)})
+
+
+
 /// Users
 
 /**
@@ -67,14 +81,34 @@ exports.getAllReservations = getAllReservations;
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = function(options, limit = 10) {
+  /*
   const limitedProperties = {};
   for (let i = 1; i <= limit; i++) {
     limitedProperties[i] = properties[i];
   }
   return Promise.resolve(limitedProperties);
-}
-exports.getAllProperties = getAllProperties;
+  */
+  
+  // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w12/activities/769?journey_step=42&workbook=16
 
+  sqlQueryString = `
+    SELECT * 
+    from properties
+    LIMIT $1
+  `;
+  sqlValues = [limit];
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then ((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.getAllProperties = getAllProperties;
+// getAllProperties();
 
 /**
  * Add a property to the database
