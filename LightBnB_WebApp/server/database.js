@@ -23,17 +23,27 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  let user;
-  for (const userId in users) {
-    user = users[userId];
-    if (user.email.toLowerCase() === email.toLowerCase()) {
-      break;
-    } else {
-      user = null;
-    }
-  }
-  return Promise.resolve(user);
-}
+  // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w13/activities/776?journey_step=51&workbook=17
+  
+  let userEmail = email.toLowerCase();
+  sqlQueryString = `
+  SELECT * 
+  from users
+  WHERE users.email = $1
+`;
+  sqlValues = [userEmail];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then ((result) => {
+      console.log(result.rows);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+
+};
 exports.getUserWithEmail = getUserWithEmail;
 
 /**
@@ -80,15 +90,7 @@ exports.getAllReservations = getAllReservations;
  * @param {*} limit The number of results to return.
  * @return {Promise<[{}]>}  A promise to the properties.
  */
-const getAllProperties = function(options, limit = 10) {
-  /*
-  const limitedProperties = {};
-  for (let i = 1; i <= limit; i++) {
-    limitedProperties[i] = properties[i];
-  }
-  return Promise.resolve(limitedProperties);
-  */
-  
+const getAllProperties = function(options, limit = 10) {  
   // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w12/activities/769?journey_step=42&workbook=16
 
   sqlQueryString = `
