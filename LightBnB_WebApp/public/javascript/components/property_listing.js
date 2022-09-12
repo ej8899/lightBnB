@@ -1,11 +1,16 @@
 $(() => {
   window.propertyListing = {};
   
+
+
   function createListing(property, isReservation) {
+    // extrastretch
+    checkImage(property.thumbnail_photo_url, property.id);
+    // alert(JSON.stringify(property))
     return `
     <article class="property-listing">
         <section class="property-listing__preview-image">
-          <img src="${property.thumbnail_photo_url}" alt="house">
+          <img src="${property.thumbnail_photo_url}" alt="house" id="listingid${property.id}">
         </section>
         <section class="property-listing__details">
           <h3 class="property-listing__title">${property.title}</h3>

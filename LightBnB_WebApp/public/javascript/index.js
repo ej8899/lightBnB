@@ -4,3 +4,6 @@ $(() => {
     views_manager.show('listings');
   });
 });
+
+
+
