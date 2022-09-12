@@ -25,24 +25,23 @@ const pool = new Pool({
 const getUserWithEmail = function(email) {
   // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w13/activities/776?journey_step=51&workbook=17
   
-  let userEmail = email.toLowerCase();
-  sqlQueryString = `
+  let userEmail = email.toLowerCase().trim();
+  let sqlQueryString = `
   SELECT * 
   from users
-  WHERE users.email = $1
+  WHERE users.email = $1;
 `;
-  sqlValues = [userEmail];
+  let sqlValues = [userEmail];
 
   return pool
     .query(sqlQueryString, sqlValues)
-    .then ((result) => {
+    .then((result) => {
       console.log(result.rows);
       return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
     });
-
 };
 exports.getUserWithEmail = getUserWithEmail;
 
@@ -52,8 +51,24 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function(id) {
-  return Promise.resolve(users[id]);
-}
+  
+  let sqlQueryString = `
+  SELECT * 
+  from users
+  WHERE users.id = $1;
+  `;
+  let sqlValues = [id];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 exports.getUserWithId = getUserWithId;
 
 
@@ -63,12 +78,28 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const userId = Object.keys(users).length + 1;
-  user.id = userId;
-  users[userId] = user;
-  return Promise.resolve(user);
-}
+
+  let sqlQueryString = `
+  INSERT INTO users (name, email, password)
+  VALUES ($1, $2, $3)
+  RETURNING *;
+  `;    // note the "RETURNING *" gives us back the auto gen. ID/PK
+  let sqlValues = [user.name, user.email, user.password];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 exports.addUser = addUser;
+
+
+
 
 /// Reservations
 
@@ -82,6 +113,9 @@ const getAllReservations = function(guest_id, limit = 10) {
 }
 exports.getAllReservations = getAllReservations;
 
+
+
+
 /// Properties
 
 /**
@@ -93,16 +127,16 @@ exports.getAllReservations = getAllReservations;
 const getAllProperties = function(options, limit = 10) {  
   // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w12/activities/769?journey_step=42&workbook=16
 
-  sqlQueryString = `
+  let sqlQueryString = `
     SELECT * 
     from properties
     LIMIT $1
   `;
-  sqlValues = [limit];
+  let sqlValues = [limit];
   return pool
     .query(sqlQueryString, sqlValues)
-    .then ((result) => {
-      console.log(result.rows);
+    .then((result) => {
+      // console.log(result.rows);
       return result.rows;
     })
     .catch((err) => {
@@ -111,6 +145,8 @@ const getAllProperties = function(options, limit = 10) {
 };
 exports.getAllProperties = getAllProperties;
 // getAllProperties();
+
+
 
 /**
  * Add a property to the database
