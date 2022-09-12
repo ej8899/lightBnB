@@ -6,7 +6,7 @@ $(() => {
   function createListing(property, isReservation) {
     // extrastretch
     checkImage(property.thumbnail_photo_url, property.id);
-    // alert(JSON.stringify(property))
+    
     return `
     <article class="property-listing">
         <section class="property-listing__preview-image">

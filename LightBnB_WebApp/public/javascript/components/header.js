@@ -12,10 +12,10 @@ $(() => {
       userLinks = `
       <nav id="page-header__user-links" class="page-header__user-links">
         <ul>
-          <li class="home">🏠</li>
-          <li class="search_button">Search</li>
-          <li class="login_button">Log In</li>
-          <li class="sign-up_button">Sign Up</li>
+          <li class="home hoverbutton"><i class="fa-solid fa-house"></i></li>
+          <li class="search_button hoverbutton">Search</li>
+          <li class="login_button hoverbutton">Log In</li>
+          <li class="sign-up_button hoverbutton">Sign Up</li>
         </ul>
       </nav>
       `
@@ -23,13 +23,13 @@ $(() => {
       userLinks = `
       <nav id="page-header__user-links" class="page-header__user-links">
         <ul>
-          <li class="home">🏠</li>
-          <li class="search_button">Search</li>
-          <li>${user.name}</li>
-          <li class="create_listing_button">Create Listing</li>
-          <li class="my_listing_button">My Listings</li>
-          <li class="my_reservations_button">My Reservations</li>
-          <li class="logout_button">Log Out</li>
+          <li class="home hoverbutton"><i class="fa-solid fa-house"></i></li>
+          <li class="search_button hoverbutton">Search</li>
+          <li class="hoverbutton">${user.name}</li>
+          <li class="create_listing_button hoverbutton">Create Listing</li>
+          <li class="my_listing_button hoverbutton">My Listings</li>
+          <li class="my_reservations_button hoverbutton">My Reservations</li>
+          <li class="logout_button hoverbutton">Log Out</li>
         </ul>
       </nav>
       `

@@ -1,17 +1,18 @@
-
+//
+// checkImage(url)
+// DOES NOT return a value - use the success and fail functions!
+//
 const checkImage = (url,id) => {
   let image = new Image();
-  image.onload = function() { // image DOES exist
+  
+  image.onload = () => { // image DOES exist
     if (this.width > 0) {
-      let listid = "#listingid" + id;
+      // unhide each id if we setup for lazy load of images
     }
   };
-  image.onerror = function() { // image does NOT exist
+  image.onerror = () => { // image does NOT exist
     let listid = "#listingid" + id;
-    //alert("image doesn't exist:" + listid);
     $(listid).attr("src","./images/missingimage.png");
   };
-  image.src = url;
+  image.src = url; // NOTE: set SRC after the onload event: https://stackoverflow.com/questions/7434371/image-onload-function-with-return
 };
-// fail: checkImage("https://picsum.photos/200/300.dfsd");
-// pass: checkImage("https://picsum.photos/200/300");

@@ -130,6 +130,7 @@ const getAllProperties = function(options, limit = 10) {
   let sqlQueryString = `
     SELECT * 
     from properties
+    order by random()
     LIMIT $1
   `;
   let sqlValues = [limit];
