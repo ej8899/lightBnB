@@ -20,11 +20,11 @@ $(() => {
       </div>
 
       <div class="search-property-form__field-wrapper">
-          <button>Search</button>
+          <button>Search</button>&nbsp;&nbsp;
           <a id="search-property-form__cancel" href="#">Cancel</a>
       </div>
     </form>
-  `)
+  `);
   window.$searchPropertyForm = $searchPropertyForm;
 
   $searchPropertyForm.on('submit', function(event) {

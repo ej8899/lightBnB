@@ -16,7 +16,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
-  align-content: stretch; }
+  align-content: stretch;
+  background-color:gainsboro;
+}
   .property-listing__title {
     font-size: 1.0rem; }
   .property-listing__preview-image {
@@ -104,14 +106,21 @@ CUSTOM CSS:
         #E16541 16.666%, 
         #E16541 33.333%, 
         #F18F43 33.333%, 
-        #F18F43 50%, 
-        #8B9862 50%, 
-        #8B9862 66.666%, 
-        #476098 66.666%, 
-        #476098 83.333%, 
-        #A7489B 83.333%);
+        #F18F43 50%,         
+        #CA4246 50%, 
+        #E16541 66.666%, 
+        #E16541 66.666%, 
+        #F18F43 83.333%, 
+        #F18F43 83.333%
+        );
   border-bottom: 3px solid #E21143;
   background-size: 100%;
+
+  -moz-text-stroke-color: rgb(17, 17, 17);
+  -webkit-text-stroke-color: rgb(17, 17, 17);
+  -moz-text-stroke-width: 2px;  
+  -webkit-text-stroke-width: 2px;
+
   -webkit-background-clip: text;
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent; 
@@ -157,4 +166,8 @@ CUSTOM CSS:
 }
 .property-listing__details ul {
   width: 100%
+}
+
+body {
+  background-color: azure;
 }
