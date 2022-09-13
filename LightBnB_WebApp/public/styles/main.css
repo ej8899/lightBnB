@@ -3,6 +3,7 @@
  * see https://github.com/ej8899/conColors 
  * for details on light and dark mode setup
  */
+
 :root {
   --rich-black: #0a0a0aff;
   --eerie-black:#1a181aff;
@@ -57,7 +58,6 @@
   color-scheme: light;
 }
 
-
 .property-listings {
   width: 100%;
   display: flex;
@@ -80,7 +80,8 @@
   background-color: var(--cardbackgroundcolor);
 }
   .property-listing__title {
-    font-size: 1.0rem; }
+    font-size: 1.0rem;
+  }
   .property-listing__preview-image {
     overflow: hidden;
     border-radius: 10px;

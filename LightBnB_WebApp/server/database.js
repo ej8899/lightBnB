@@ -78,7 +78,6 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-
   let sqlQueryString = `
   INSERT INTO users (name, email, password)
   VALUES ($1, $2, $3)
@@ -109,7 +108,33 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  //return getAllProperties(null, 2);
+
+  let sqlQueryString = `
+  select 
+	r.*, 
+	p.*,
+	round(avg(pr.rating),1) as average_rating
+	
+from reservations as r
+join properties as p on p.id = r.property_id
+join property_reviews as pr on pr.property_id = r.property_id
+where r.guest_id = $1
+group by r.id, p.id
+order by r.start_date desc
+LIMIT $2;
+  `;    // note the "RETURNING *" gives us back the auto gen. ID/PK
+  let sqlValues = [guest_id, limit];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 exports.getAllReservations = getAllReservations;
 
