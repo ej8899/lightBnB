@@ -1,3 +1,63 @@
+/*
+ * Light & Dark Mode variables
+ * see https://github.com/ej8899/conColors 
+ * for details on light and dark mode setup
+ */
+:root {
+  --rich-black: #0a0a0aff;
+  --eerie-black:#1a181aff;
+  --davys-grey: #505050ff;
+  --persian-red:#d1342fff;
+  --black-olive:#434038ff;
+  --dutch-white:rgb(179, 173, 156);
+}
+
+:root.dark {
+  --bodybackgroundcolor: var(--eerie-black);
+  --iconcolor: var(--dutch-white);
+  --cardbackgroundcolor: rgb(50, 50, 50);
+  --tweetcontentcolor: var(--dutch-white);
+  --wasteal: var(--davys-grey);
+  --red: var(--persian-red);
+  --submitformcolor: var(--dutch-white);
+  --titleglowcolor: teal;
+  --headerbordercolor: var(--dutch-white);
+  --errorboxcolor: rgba(214, 207, 5, 0.675);
+  --darkiconcolor: var(--eerie-black);
+  color-scheme: dark;
+}
+
+:root.light {
+  --bodybackgroundcolor: rgba(73,143,143,0.536);
+  --iconcolor: #545149;
+  --cardbackgroundcolor: #e7cda2;
+  --tweetcontentcolor: #545149c3;
+  --wasteal: teal;
+  --red: red;
+  --submitformcolor: #f3b860c9;
+  --titleglowcolor: #FD5901;
+  --headerbordercolor: rgb(3, 84, 84);
+  --errorboxcolor: rgba(255, 0, 0, 0.328);
+  --darkiconcolor: var(--eerie-black);
+  color-scheme: light;
+}
+
+:root {
+  --bodybackgroundcolor: rgba(73,143,143,0.536);
+  --iconcolor: #545149;
+  --cardbackgroundcolor: #e7cda2;
+  --tweetcontentcolor: #545149c3;
+  --wasteal: teal;
+  --red: red;
+  --submitformcolor: #f3b860c9;
+  --titleglowcolor: #FD5901;
+  --headerbordercolor: rgb(3, 84, 84);
+  --errorboxcolor: rgba(255, 0, 0, 0.328);
+  --darkiconcolor: var(--eerie-black);
+  color-scheme: light;
+}
+
+
 .property-listings {
   width: 100%;
   display: flex;
@@ -9,7 +69,7 @@
   width: 100%;
   max-width: 600px;
   height: 200px;
-  border: 2px solid black;
+  border: 2px solid var(--headerbordercolor);
   border-radius: 10px;
   box-sizing: border-box;
   display: flex;
@@ -17,7 +77,7 @@
   justify-content: space-between;
   align-items: stretch;
   align-content: stretch;
-  background-color:gainsboro;
+  background-color: var(--cardbackgroundcolor);
 }
   .property-listing__title {
     font-size: 1.0rem; }
@@ -169,5 +229,5 @@ CUSTOM CSS:
 }
 
 body {
-  background-color: azure;
+  background-color: var(--bodybackgroundcolor);
 }
