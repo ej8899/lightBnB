@@ -37,7 +37,8 @@ $(() => {
     }
 
     // ORIGINAL code to replace ${finalStars}
-    // ${Math.round(property.average_rating * 100) / 100}/5 stars
+    let actualRating = Math.round(property.average_rating * 100) / 100; // out of 5
+    let toolTipRating = "Exact rating: " + actualRating + " / 5.";
     return `
     <article class="property-listing">
         <section class="property-listing__preview-image">
@@ -54,7 +55,7 @@ $(() => {
             `<p>booked: ${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}</p>` 
             : ``}
           <footer class="property-listing__footer">
-            <div class="property-listing__rating">${finalStars}</div>
+            <div class="property-listing__rating tooltip expand" data-title="${toolTipRating}">${finalStars}</div>
             <div class="property-listing__price">$${property.cost_per_night/100.0}/night</div>
           </footer>
         </section>

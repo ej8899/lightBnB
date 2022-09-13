@@ -17,8 +17,8 @@ $(() => {
           <li class="login_button hoverbutton">Log In</li>
           <li class="sign-up_button hoverbutton">Sign Up</li>
           <li style="padding-left:20px"><a href="https://github.com/ej8899/lightBnB" target="new"><i class="fa-brands fa-github fa-lg"></i></a></li>
-          <li style="padding-left:5px"><a href="https://www.linkedin.com/in/ernie-johnson-3b77829b/ target="new"><i class="fa-brands fa-linkedin fa-lg"></i></a></li>
-          <li><div class="switchcontainer"><i class="fa-solid fa-sun darkicon" id="dayicon"></i>&nbsp;<input type="checkbox" class="toggle" unchecked onclick="toggleDarkMode();" id="darkmodeswitch"><i class="fa-solid fa-moon darkicon" id="nighticon" style="padding-left: 4px;"></i></div></li>
+          <li style="padding-left:5px" class="tooltip expand" data-title="latest version on github"><a href="https://www.linkedin.com/in/ernie-johnson-3b77829b/ target="new"><i class="fa-brands fa-linkedin fa-lg"></i></a></li>
+          <li class="tooltip expand" data-title="check us out on linkedin"><div class="switchcontainer"><i class="fa-solid fa-sun darkicon" id="dayicon"></i>&nbsp;<input type="checkbox" class="toggle" unchecked onclick="toggleDarkMode();" id="darkmodeswitch"><i class="fa-solid fa-moon darkicon" id="nighticon" style="padding-left: 4px;"></i></div></li>
         </ul>
       </nav>
       `
@@ -33,9 +33,9 @@ $(() => {
           <li class="my_listing_button hoverbutton">My Listings</li>
           <li class="my_reservations_button hoverbutton">My Reservations</li>
           <li class="logout_button hoverbutton">Log Out</li>
-          <li style="padding-left:20px"><a href="https://github.com/ej8899/lightBnB" target="new"><i class="fa-brands fa-github fa-lg"></i></a></li>
-          <li style="padding-left:5px"><a href="https://www.linkedin.com/in/ernie-johnson-3b77829b/ target="new"><i class="fa-brands fa-linkedin fa-lg"></i></a></li>
-          <li><div class="switchcontainer"><i class="fa-solid fa-sun darkicon" id="dayicon"></i>&nbsp;<input type="checkbox" class="toggle" unchecked onclick="toggleDarkMode();" id="darkmodeswitch"><i class="fa-solid fa-moon darkicon" id="nighticon" style="padding-left: 4px;"></i></div></li>
+          <li style="padding-left:20px" class="tooltip expand" data-title="latest version on github"><a href="https://github.com/ej8899/lightBnB" target="new"><i class="fa-brands fa-github fa-lg"></i></a></li>
+          <li style="padding-left:5px" class="tooltip expand" data-title="check us out on linkedin"><a href="https://www.linkedin.com/in/ernie-johnson-3b77829b/ target="new"><i class="fa-brands fa-linkedin fa-lg"></i></a></li>
+          <li><div class="switchcontainer tooltip expand" data-title="toggle light & dark mode"><i class="fa-solid fa-sun darkicon" id="dayicon"></i>&nbsp;<input type="checkbox" class="toggle" unchecked onclick="toggleDarkMode();" id="darkmodeswitch"><i class="fa-solid fa-moon darkicon" id="nighticon" style="padding-left: 4px;"></i></div></li>
         </ul>
       </nav>
       `
