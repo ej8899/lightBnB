@@ -17,7 +17,7 @@
   --bodybackgroundcolor: var(--eerie-black);
   --iconcolor: var(--dutch-white);
   --cardbackgroundcolor: rgb(50, 50, 50);
-  --tweetcontentcolor: var(--dutch-white);
+  --cardcontentcolor: var(--dutch-white);
   --wasteal: var(--davys-grey);
   --red: var(--persian-red);
   --submitformcolor: var(--dutch-white);
@@ -32,7 +32,7 @@
   --bodybackgroundcolor: rgba(73,143,143,0.536);
   --iconcolor: #545149;
   --cardbackgroundcolor: #e7cda2;
-  --tweetcontentcolor: #545149c3;
+  --cardcontentcolor: #35332d;
   --wasteal: teal;
   --red: red;
   --submitformcolor: #f3b860c9;
@@ -47,7 +47,7 @@
   --bodybackgroundcolor: rgba(73,143,143,0.536);
   --iconcolor: #545149;
   --cardbackgroundcolor: #e7cda2;
-  --tweetcontentcolor: #545149c3;
+  --cardcontentcolor: #35332d;
   --wasteal: teal;
   --red: red;
   --submitformcolor: #f3b860c9;
@@ -62,9 +62,11 @@
   width: 100%;
   display: flex;
   align-items: center;
-  flex-direction: column; }
+  flex-direction: column;
+}
 
 .property-listing {
+  color: var(--cardcontentcolor);
   margin: 20px 0;
   width: 100%;
   max-width: 600px;
@@ -80,7 +82,10 @@
   background-color: var(--cardbackgroundcolor);
 }
   .property-listing__title {
-    font-size: 1.0rem;
+    font-size: 1.2rem;
+    padding-top: 0;
+    margin-top: 5px;
+    border-bottom: 2px solid ;
   }
   .property-listing__preview-image {
     overflow: hidden;
@@ -92,12 +97,16 @@
   }
     .property-listing__preview-image img {
       display: block;
+      /*
       max-width: 230px;
       width:100%;
       height: auto;
       margin-left: auto;
       margin-right: auto;
-      
+      */
+      width: 230px;
+      height: 100%;
+      object-fit: cover;
       /* ORIGINAL CSS:
       min-width: 100%;
       height: 100%;
@@ -231,4 +240,14 @@ CUSTOM CSS:
 
 body {
   background-color: var(--bodybackgroundcolor);
+  box-sizing: border-box;
+}
+
+.imgthumb {
+  transition: filter 2s;
+  filter: grayscale(70%);
+}
+.imgthumb:hover {
+  transition: filter 500ms;
+  filter: grayscale(1%);
 }
