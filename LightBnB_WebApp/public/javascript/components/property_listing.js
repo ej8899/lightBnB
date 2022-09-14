@@ -1,9 +1,6 @@
 $(() => {
   window.propertyListing = {};
   
-// full star:   <i class="fa-solid fa-star"></i>
-// half star:   <i class="fa-solid fa-star-half-stroke"></i>
-// empty star:  <i class="fa-regular fa-star"></i>
 
   function createListing(property, isReservation) {
     // error check for broken images via bad url or missing image at url
@@ -55,7 +52,7 @@ $(() => {
             `booked: ${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}` 
             : ``}&nbsp;</p>
           <footer class="property-listing__footer">
-            <div class="property-listing__rating tooltip expand" data-title="${toolTipRating}">${finalStars}</div>
+            <div class="property-listing__rating tooltip expand stars" data-title="${toolTipRating}">${finalStars}</div>
             <div class="property-listing__price">$${property.cost_per_night/100.0}/night</div>
           </footer>
         </section>

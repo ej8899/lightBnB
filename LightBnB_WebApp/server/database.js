@@ -153,12 +153,45 @@ const getAllProperties = function(options, limit = 10) {
   // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w12/activities/769?journey_step=42&workbook=16
 
   let sqlQueryString = `
-    SELECT * 
-    from properties
-    order by random()
-    LIMIT $1
+    SELECT properties.*, AVG(property_reviews.rating) as average_rating 
+    FROM properties
+    JOIN property_reviews on properties.id = property_reviews.property_id
+    `;
+  let sqlValues = [];
+
+  if (options.city) {                     // process search CITY
+    sqlValues.push(`%${options.city}%`);
+    sqlQueryString +=  `WHERE city iLIKE $${sqlValues.length} `;
+  }
+  if (options.owner_id) {                 // process search OWNER (via ID)
+    sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
+    sqlValues.push(options.owner_id);
+    sqlQueryString += `properties.owner_id = $${sqlValues.length} `;
+  }
+  if (options.minimum_price_per_night) {  // process SEARCH RANGE
+    sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
+    sqlValues.push(options.minimum_price_per_night * 100);
+    sqlQueryString += `properties.cost_per_night >= $${sqlValues.length} `;
+  }
+  if (options.maximum_price_per_night) {
+    sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
+    sqlValues.push(options.maximum_price_per_night * 100);
+    sqlQueryString += `properties.cost_per_night <= $${sqlValues.length} `;
+  }
+  sqlQueryString += 'GROUP BY properties.id ';    // dont forget ORDERING of GROUP by and HAVING!
+  if (options.minimum_rating) {           // process MIN rating
+    sqlValues.push(options.minimum_rating);
+    sqlQueryString += `
+    HAVING avg(property_reviews.rating) >= $${sqlValues.length} `;
+  }
+
+  sqlValues.push(limit); // add SQL "limit" to values
+  sqlQueryString += `
+    order by properties.cost_per_night asc 
+    LIMIT $${sqlValues.length}
+    ;
   `;
-  let sqlValues = [limit];
+  console.log(sqlQueryString + ' | ' + sqlValues);
   return pool
     .query(sqlQueryString, sqlValues)
     .then((result) => {

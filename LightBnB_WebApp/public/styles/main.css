@@ -80,7 +80,15 @@
   align-items: stretch;
   align-content: stretch;
   background-color: var(--cardbackgroundcolor);
+
+  transition: filter 4s;
+  filter: grayscale(70%);
 }
+.property-listing:hover {
+  transition: filter 500ms;
+  filter: grayscale(1%);
+}
+
   .property-listing__title {
     font-size: 1.2rem;
     padding-top: 0;
@@ -245,9 +253,13 @@ body {
 
 .imgthumb {
   transition: filter 2s;
-  filter: grayscale(70%);
+  filter: grayscale(10%);
 }
 .imgthumb:hover {
   transition: filter 500ms;
   filter: grayscale(1%);
+}
+
+.stars {
+  color:#F18F43
 }
