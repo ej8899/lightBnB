@@ -2,6 +2,9 @@
 // checkImage(url)
 // DOES NOT return a value - use the success and fail functions!
 //
+
+let map,mapMarkers;
+
 const checkImage = (url,id) => {
   let image = new Image();
   
@@ -16,9 +19,6 @@ const checkImage = (url,id) => {
   };
   image.src = url; // NOTE: set SRC after the onload event: https://stackoverflow.com/questions/7434371/image-onload-function-with-return
 };
-
-
-
 
 
 //
@@ -86,3 +86,52 @@ const toggleDarkMode = function(option) {
 };
 
 toggleDarkMode('check');
+
+
+
+
+//
+//  google mapping of properties
+//
+
+const initMap = function() {
+  markersArray = [];          //array to hold the map markers
+
+  const clearOverlays = function() {
+    //function to clear the markers from the arrays, deleting them from the map
+    for (let i = 0; i < markersArray.length; i++) {
+      markersArray[i].setMap(null);
+    }
+    markersArray.length = 0;
+  };
+    
+  let mapProp = {                                     // setup initial map display
+    center:new google.maps.LatLng(53.5, -104.0),      // center of (roughly canada centered)
+    zoom:4,
+  };
+  map = new google.maps.Map(document.getElementById("map"), mapProp);
+
+  google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
+    clearOverlays();            //removes current markers form the map
+  });
+  // set leftclick to search in the marked city - get city name from the marker
+};
+
+window.initMap = initMap;
+
+const placeMarker = function(location,city) {
+  //place marker function, adds marker to passed in location
+  let marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: city,
+  });
+  
+  markersArray.push(marker);        //adds new marker to the markers array
+  google.maps.event.addListener(marker, 'click', function() {     //listener so when a marker is clicked an infowindow pops up
+    //infoWindow.open(map,marker);
+    //marker is object
+    alert(this.getTitle());
+  });
+};
+

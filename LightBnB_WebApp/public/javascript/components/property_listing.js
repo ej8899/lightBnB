@@ -5,6 +5,7 @@ $(() => {
   function createListing(property, isReservation) {
     // error check for broken images via bad url or missing image at url
     checkImage(property.thumbnail_photo_url, property.id);
+    getGeo(property.city,property.province);
 
     // process star rating
     const fullStar =  `<i class="fa-solid fa-star"></i>`;
@@ -44,9 +45,10 @@ $(() => {
         <section class="property-listing__details">
           <h3 class="property-listing__title">${property.title}</h3>
           <ul class="property-listing__details">
-            <li>number_of_bedrooms: ${property.number_of_bedrooms}</li>
-            <li>number_of_bathrooms: ${property.number_of_bathrooms}</li>
+            <li>beds: ${property.number_of_bedrooms} / baths: ${property.number_of_bathrooms}</li>
+            <!--<li>number_of_bathrooms: ${property.number_of_bathrooms}</li>-->
             <li>parking_spaces: ${property.parking_spaces}</li>
+            <li>city: ${property.city}, ${property.province}</li>
           </ul>
           <p>${isReservation ? 
             `booked: ${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}` 
@@ -63,3 +65,31 @@ $(() => {
   window.propertyListing.createListing = createListing;
 
 });
+
+
+//
+// implement mapping
+// 1. get lat long,
+// 2. plot map markers
+//
+
+// get lat long of city
+const getGeo = (city,prov) => {
+
+  const apiKey = 'AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k';
+  const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?key=${apiKey}&address=${city},${prov}&sensor=false`;
+  
+  fetch(apiURL).then(function (response) {
+    // The API call was successful!
+    return response.json();
+  }).then(function (data) {
+    // This is the OBJECT from our response
+    placeMarker({lat:data.results[0].geometry.location.lat,lng:data.results[0].geometry.location.lng},city);
+    //placeMarker({lat:42.4668,lng:-70.9495});
+    //placeMarker({lat:50.912,lng:-114.113});
+    console.log(data.results[0].geometry.location.lat);
+  }).catch(function (err) {
+    // There was an error
+    console.warn('GEOCODE: Something went wrong.', err);
+  });
+};
