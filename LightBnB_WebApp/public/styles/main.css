@@ -67,6 +67,7 @@
 
 .property-listing {
   color: var(--cardcontentcolor);
+  overflow: hidden;
   margin: 20px 0;
   width: 100%;
   max-width: 600px;
@@ -97,10 +98,10 @@
   }
   .property-listing__preview-image {
     overflow: hidden;
-    border-radius: 10px;
-    border: 1px solid;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px transparent;
     -moz-border-radius: 10px;
-    border-radius: 10px;
     max-width: 50%; 
   }
     .property-listing__preview-image img {
@@ -272,4 +273,12 @@ body {
 
 #map {
   height: 300px;
+  border-radius: 15px;
+  border: 2px solid;
+}
+
+input,textarea,select {
+  border-radius: 3px;
+  border: 1px;
+  padding:13px;
 }

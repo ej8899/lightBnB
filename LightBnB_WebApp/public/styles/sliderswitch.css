@@ -4,6 +4,7 @@ input[type=checkbox] {
   appearance: none;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
+  padding:1px;
 }
 
 input[type=checkbox]:focus {

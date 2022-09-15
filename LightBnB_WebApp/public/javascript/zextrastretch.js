@@ -121,6 +121,9 @@ const initMap = function() {
   let mapProp = {                                     // setup initial map display
     center:new google.maps.LatLng(53.5, -104.0),      // center of (roughly canada centered)
     zoom:4,
+    mapTypeControlOptions: { mapTypeIds: [] },
+    streetViewControl: false,
+    fullscreenControl: false,
   };
   map = new google.maps.Map(document.getElementById("map"), mapProp);
 
