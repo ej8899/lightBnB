@@ -71,6 +71,26 @@ const getUserWithId = function(id) {
 };
 exports.getUserWithId = getUserWithId;
 
+//
+// extrastretch - getAllCities for our map
+//
+const getAllCities = function() {
+  let sqlQueryString = `
+  SELECT distinct city,province from properties;
+  `;
+  let sqlValues = [];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.getAllCities = getAllCities;
 
 /**
  * Add a new user to the database.

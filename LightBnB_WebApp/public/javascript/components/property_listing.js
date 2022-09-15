@@ -45,9 +45,9 @@ $(() => {
         <section class="property-listing__details">
           <h3 class="property-listing__title">${property.title}</h3>
           <ul class="property-listing__details">
-            <li>beds: ${property.number_of_bedrooms} / baths: ${property.number_of_bathrooms}</li>
+            <li>beds: ${property.number_of_bedrooms} / baths: ${property.number_of_bathrooms} / parking: ${property.parking_spaces}</li>
             <!--<li>number_of_bathrooms: ${property.number_of_bathrooms}</li>-->
-            <li>parking_spaces: ${property.parking_spaces}</li>
+            <!--<li>parking_spaces: ${property.parking_spaces}</li>-->
             <li>city: ${property.city}, ${property.province}</li>
           </ul>
           <p>${isReservation ? 

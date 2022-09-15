@@ -97,6 +97,19 @@ toggleDarkMode('check');
 const initMap = function() {
   markersArray = [];          //array to hold the map markers
 
+  /*
+  // WORKING CODE: this gets all cities and maps them
+   getAllTheCities()
+    .then(function(json) {
+      //console.log(json.properties);  // test ok
+      // alert(json.properties.length); // 258
+      json.properties.forEach(element => {
+        getGeo(element.city,element.province);
+      });
+    });
+*/
+
+
   const clearOverlays = function() {
     //function to clear the markers from the arrays, deleting them from the map
     for (let i = 0; i < markersArray.length; i++) {
@@ -110,6 +123,10 @@ const initMap = function() {
     zoom:4,
   };
   map = new google.maps.Map(document.getElementById("map"), mapProp);
+
+  let infoWindow = new google.maps.InfoWindow({
+    content:'<h1>fdfd</h1>'
+  });
 
   google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
     clearOverlays();            //removes current markers form the map
@@ -131,7 +148,15 @@ const placeMarker = function(location,city) {
   google.maps.event.addListener(marker, 'click', function() {     //listener so when a marker is clicked an infowindow pops up
     //infoWindow.open(map,marker);
     //marker is object
-    alert(this.getTitle());
+    // alert(this.getTitle());
+    let citysearch=this.getTitle();
+    // how to call our database search on JUST this city????
+    //let data =  const data = $(this.getTitle).serialize();
+
+    getAllListings(`city=${citysearch}`).then(function( json ) {
+      propertyListings.addProperties(json.properties);
+      views_manager.show('listings');
+    });
   });
 };
 

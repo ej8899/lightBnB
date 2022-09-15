@@ -28,6 +28,13 @@ function signUp(data) {
   });
 }
 
+function getAllTheCities() {
+  let url = "/api/allcities";
+  return $.ajax({
+    url,
+  });
+}
+
 function getAllListings(params) {
   let url = "/api/properties";
   if (params) {

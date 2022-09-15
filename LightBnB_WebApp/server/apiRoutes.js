@@ -23,6 +23,16 @@ module.exports = function(router, database) {
     });
   });
 
+  router.get('/allcities', (req, res) => {
+    database.getAllCities(req.query, 300)
+      .then(properties => res.send({properties}))
+      .catch(e => {
+        console.error(e);
+        res.send(e);
+      });
+  });
+
+
   router.post('/properties', (req, res) => {
     const userId = req.session.userId;
     database.addProperty({...req.body, owner_id: userId})
