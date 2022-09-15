@@ -3,7 +3,8 @@
 // DOES NOT return a value - use the success and fail functions!
 //
 
-let map,mapMarkers;
+// global vars for GOOGLE MAP API
+let map,mapMarkers,markersArray;
 
 const checkImage = (url,id) => {
   let image = new Image();
@@ -94,11 +95,13 @@ toggleDarkMode('check');
 //  google mapping of properties
 //
 
+// https://www.w3schools.com/graphics/google_maps_reference.asp
+//
 const initMap = function() {
-  markersArray = [];          //array to hold the map markers
+  markersArray = [];          // array to hold the map markers
 
   /*
-  // WORKING CODE: this gets all cities and maps them
+  // WORKING CODE: this gets all cities and maps them  -- might be a bit too much for the map (258 pins)
    getAllTheCities()
     .then(function(json) {
       //console.log(json.properties);  // test ok
@@ -108,7 +111,6 @@ const initMap = function() {
       });
     });
 */
-
 
   const clearOverlays = function() {
     //function to clear the markers from the arrays, deleting them from the map
@@ -127,36 +129,100 @@ const initMap = function() {
   };
   map = new google.maps.Map(document.getElementById("map"), mapProp);
 
+  //
+  // TODO - build out info window process
+  //
   let infoWindow = new google.maps.InfoWindow({
     content:'<h1>fdfd</h1>'
   });
+  
 
+  //
+  //  RIGHT CLICK handler for ENTIRE map
+  //
   google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
     clearOverlays();            //removes current markers form the map
   });
-  // set leftclick to search in the marked city - get city name from the marker
+
+  //
+  //  RIGHT CLICK handler for MARKER
+  //
+  google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
+    clearOverlays();            //removes current markers form the map
+  });
+
+  /*
+  //
+  //  MOUSE OVER (& OUT) handler
+  //
+  marker.addListener('mouseover', function() {
+    infoWindow.open(map, this);
+  });
+
+  // assuming you also want to hide the infowindow when user mouses-out
+  marker.addListener('mouseout', function() {
+    infoWindow.close();
+  });
+*/
+
+  //
+  // LEFT CLICK handler
+  //
+  // (see external function below)
+
 };
 
 window.initMap = initMap;
 
 const placeMarker = function(location,city) {
+  // CUSTOM icon for LightBNB (bed icon)
+  let icon = {
+    path: "M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zM176 288c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80z",
+    fillColor: '#CA4246',
+    fillOpacity: 1,
+    strokeWeight: 0,
+    scale: 0.05,
+  };
+
   //place marker function, adds marker to passed in location
   let marker = new google.maps.Marker({
     position: location,
     map: map,
-    title: city,
+    icon: icon,
+    //title: city, // title is default for maps hover/tooltip tag
+    mytitle: city, // we can use our own defined options like this one
   });
-  
   markersArray.push(marker);        //adds new marker to the markers array
-  google.maps.event.addListener(marker, 'click', function() {     //listener so when a marker is clicked an infowindow pops up
-    //infoWindow.open(map,marker);
-    //marker is object
-    // alert(this.getTitle());
-    let citysearch=this.getTitle();
-    // how to call our database search on JUST this city????
-    //let data =  const data = $(this.getTitle).serialize();
 
-    getAllListings(`city=${citysearch}`).then(function( json ) {
+  //
+  // add info window for each marker
+  //
+  const infoWindowData = `<B>${city}</B><Br><i class="fa-solid fa-magnifying-glass"></i><small> click or tap to search this city</small>`;
+  const infoWindow = new google.maps.InfoWindow({
+    content: infoWindowData,
+  });
+
+  //
+  //  MOUSE OVER (& OUT) handler
+  //
+  marker.addListener('mouseover', function() {
+    infoWindow.open(map, this);
+  });
+
+  // assuming you also want to hide the infowindow when user mouses-out
+  marker.addListener('mouseout', function() {
+    infoWindow.close();
+  });
+
+  //
+  // LEFT button CLICK listener on each MARKER
+  //
+  google.maps.event.addListener(marker, 'click', function() {
+    // alert(this.getTitle());
+    //let citysearch = this.getTitle(); // this is a built in getter for marker object title element
+    let citysearch = this.get('mytitle'); // we can do this get get our own marker object items
+    
+    getAllListings(`city=${citysearch}`).then(function(json) {
       propertyListings.addProperties(json.properties);
       views_manager.show('listings');
     });
