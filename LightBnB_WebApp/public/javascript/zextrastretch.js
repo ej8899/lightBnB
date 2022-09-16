@@ -206,46 +206,46 @@ const placeMarker = function(location,city) {
   //
   
   // get total count of properties per city
-  getCountbyCity(city).then(function(json) {
-    let tempCount = (json.properties[0].count);
-    console.log('count for ' + city + ':' + tempCount)
-    const infoWindowData = `<B>${city} (${tempCount} listings)</B><Br><i class="fa-solid fa-magnifying-glass"></i><small> click or tap to search this city</small>`;
-    const infoWindow = new google.maps.InfoWindow({
-      content: infoWindowData,
-    });
+  let tempCount;
+  getCountbyCity(city)
+    .then(function(json) {
+      tempCount = (json.properties[0].count);
+      console.log('count for ' + city + ':' + tempCount);
+    })
+    .catch((error) => {
+      console.log('error occured: ' + error.message);
+    })
+    .then(() => { // "always" component of then.catch.promises
+      const infoWindowData = `<B>${city} (${tempCount} listings)</B><Br><i class="fa-solid fa-magnifying-glass"></i><small> click or tap to search this city</small>`;
+      const infoWindow = new google.maps.InfoWindow({
+        content: infoWindowData,
+      });
 
-    //
-    //  MOUSE OVER (& OUT) handler
-    //
-    marker.addListener('mouseover', function() {
-      //console.log(tempCount)
-      this.setIcon(iconDark);
-      infoWindow.open(map, this);
-    });
+      //  MOUSE OVER MARKER handler
+      marker.addListener('mouseover', function() {
+        //console.log(tempCount)
+        this.setIcon(iconDark);
+        infoWindow.open(map, this);
+      });
 
-    // assuming you also want to hide the infowindow when user mouses-out
-    marker.addListener('mouseout', function() {
-      this.setIcon(icon);
-      infoWindow.close();
-    });
+      // mouse OUT of MARKER handler
+      marker.addListener('mouseout', function() {
+        this.setIcon(icon);
+        infoWindow.close();
+      });
 
-    //
-    // LEFT BUTTON CLICK listener on each MARKER
-    //
-    google.maps.event.addListener(marker, 'click', function() {
-      // alert(this.getTitle());
-      //let citysearch = this.getTitle(); // this is a built in getter for marker object title element
-      let citysearch = this.get('mytitle'); // we can do this get get our own marker object items
-      
-      getAllListings(`city=${citysearch}`).then(function(json) {
-        propertyListings.addProperties(json.properties);
-        views_manager.show('listings');
+      //
+      // LEFT BUTTON CLICK listener on each MARKER
+      //
+      google.maps.event.addListener(marker, 'click', function() {
+        // alert(this.getTitle());
+        //let citysearch = this.getTitle(); // this is a built in getter for marker object title element
+        let citysearch = this.get('mytitle'); // we can do this get get our own marker object items
+        
+        getAllListings(`city=${citysearch}`).then(function(json) {
+          propertyListings.addProperties(json.properties);
+          views_manager.show('listings');
+        });
       });
     });
-
-  });
-  
-
-  
 };
-
