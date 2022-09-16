@@ -211,12 +211,13 @@ const placeMarker = function(location,city) {
     .then(function(json) {
       tempCount = (json.properties[0].count);
       console.log('count for ' + city + ':' + tempCount);
+      // throw('error')  (a test for .finally)
     })
     .catch((error) => {
       console.log('error occured: ' + error.message);
     })
     .then(() => { // "always" component of then.catch.promises
-      const infoWindowData = `<B>${city} (${tempCount} listings)</B><Br><i class="fa-solid fa-magnifying-glass"></i><small> click or tap to search this city</small>`;
+      const infoWindowData = `<div class="map-infobox-wrapper"><div><i class="fa-solid fa-magnifying-glass fa-xlg" style="color: #434038ff"></i></div><div class="map-infobox-content"><B>${city} - ${tempCount} listings.</B><Br><small> click or tap to search this city</small></div></div>`;
       const infoWindow = new google.maps.InfoWindow({
         content: infoWindowData,
       });
@@ -226,6 +227,9 @@ const placeMarker = function(location,city) {
         //console.log(tempCount)
         this.setIcon(iconDark);
         infoWindow.open(map, this);
+        let iw_container = $(".gm-style-iw").parent();
+        iw_container.stop().hide();
+        iw_container.fadeIn(500);
       });
 
       // mouse OUT of MARKER handler
@@ -242,10 +246,31 @@ const placeMarker = function(location,city) {
         //let citysearch = this.getTitle(); // this is a built in getter for marker object title element
         let citysearch = this.get('mytitle'); // we can do this get get our own marker object items
         
-        getAllListings(`city=${citysearch}`).then(function(json) {
-          propertyListings.addProperties(json.properties);
-          views_manager.show('listings');
-        });
+        getAllListings(`city=${citysearch}`)
+          .then(function(json) {
+            propertyListings.addProperties(json.properties);
+            views_manager.show('listings');
+          });
       });
     });
 };
+
+
+
+//
+// scrolling animation activator
+//
+const reveal = () => {
+  var reveals = document.querySelectorAll(".reveal");
+  for (var i = 0; i < reveals.length; i++) {
+    var windowHeight = window.innerHeight;
+    var elementTop = reveals[i].getBoundingClientRect().top;
+    var elementVisible = 150;
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add("active");
+    } else {
+      reveals[i].classList.remove("active");
+    }
+  }
+};
+window.addEventListener("scroll", reveal);

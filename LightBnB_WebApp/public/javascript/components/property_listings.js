@@ -24,9 +24,11 @@ $(() => {
     if(properties.length < 1) {
       addListing(generateNoResults());
     }
+    let pCount = 0; // counter needed for our scroll animation (don't want to hide top 2 properties)
     for (const propertyId in properties) {
       const property = properties[propertyId];
-      const listing = propertyListing.createListing(property, isReservation);
+      const listing = propertyListing.createListing(property, isReservation, pCount);
+      pCount ++;
       addListing(listing);
     }
   }

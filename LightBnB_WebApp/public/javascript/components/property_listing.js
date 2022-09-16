@@ -2,11 +2,14 @@ $(() => {
   window.propertyListing = {};
   
 
-  function createListing(property, isReservation) {
+  function createListing(property, isReservation, pCount) {
     // error check for broken images via bad url or missing image at url
     checkImage(property.thumbnail_photo_url, property.id);
     getGeo(property.city,property.province);
 
+    let revealClass;
+    pCount > 1 ? revealClass="reveal" : revealClass="";
+    
     // process star rating
     const fullStar =  `<i class="fa-solid fa-star"></i>`;
     const halfStar =  `<i class="fa-solid fa-star-half-stroke"></i>`;
@@ -38,7 +41,7 @@ $(() => {
     let actualRating = Math.round(property.average_rating * 100) / 100; // out of 5
     let toolTipRating = "Exact rating: " + actualRating + " / 5.";
     return `
-    <article class="property-listing">
+    <article class="property-listing ${revealClass}">
         <section class="property-listing__preview-image">
           <img src="${property.thumbnail_photo_url}" alt="house" class="imgthumb" id="listingid${property.id}">
         </section>
