@@ -28,8 +28,18 @@ function signUp(data) {
   });
 }
 
+// extrastretch
 function getAllTheCities() {
   let url = "/api/allcities";
+  return $.ajax({
+    url,
+  });
+}
+function getCountbyCity(params) {
+  let url = "/api/getcountbycity";
+  if (params) {
+    url += "?city=" + params;
+  }
   return $.ajax({
     url,
   });

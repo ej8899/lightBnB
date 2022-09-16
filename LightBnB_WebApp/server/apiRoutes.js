@@ -23,6 +23,7 @@ module.exports = function(router, database) {
     });
   });
 
+  // extrastretch
   router.get('/allcities', (req, res) => {
     database.getAllCities(req.query, 300)
       .then(properties => res.send({properties}))
@@ -31,7 +32,15 @@ module.exports = function(router, database) {
         res.send(e);
       });
   });
-
+  // extrastretch
+  router.get('/getcountbycity', (req, res) => {
+    database.getCountbyCity(req.query, 300)
+      .then(properties => res.send({properties}))
+      .catch(e => {
+        console.error(e);
+        res.send(e);
+      });
+  });
 
   router.post('/properties', (req, res) => {
     const userId = req.session.userId;

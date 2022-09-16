@@ -92,6 +92,32 @@ const getAllCities = function() {
 };
 exports.getAllCities = getAllCities;
 
+
+
+//
+// extrastretch - getAllCities for our map
+//
+const getCountbyCity = function(city) {
+  let sqlQueryString = `
+  SELECT count(*), city
+  from properties
+  WHERE city = $1
+  GROUP by properties.city
+  `;
+  let sqlValues = [city.city];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log('count by city: ' + city.city + ' | ' + result.rows[0]);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.getCountbyCity = getCountbyCity;
+
 /**
  * Add a new user to the database.
  * @param {{name: string, password: string, email: string}} user

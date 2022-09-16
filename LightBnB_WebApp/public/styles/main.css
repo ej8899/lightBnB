@@ -272,6 +272,7 @@ body {
   padding-top: 30px;
 }
 
+
 #map {
   height: 300px;
   border-radius: 15px;
@@ -282,6 +283,8 @@ body {
 .gm-ui-hover-effect {
   display: none !important;
 }
+
+
 
 input,textarea,select {
   border-radius: 3px;
