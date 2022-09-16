@@ -274,3 +274,23 @@ const reveal = () => {
   }
 };
 window.addEventListener("scroll", reveal);
+
+
+//
+// code for modal window
+//
+const modal = document.querySelector(".modal");
+const closeButton = document.querySelector(".close-button");
+$("#propertySubmit").removeAttr("style"); // helps eliminate any initial page draw showing the modal window
+const toggleModal = function() {
+  modal.classList.toggle("show-modal");
+};
+
+const windowOnClick = function(event) {
+  if (event.target === modal) {
+    toggleModal();
+  }
+};
+
+closeButton.addEventListener("click", toggleModal);
+window.addEventListener("click", windowOnClick);

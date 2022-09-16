@@ -107,13 +107,16 @@ $(() => {
 
     const data = $(this).serialize();
     submitProperty(data)
-    .then(() => {
-      views_manager.show('listings');
-    })
-    .catch((error) => {
-      console.error(error);
-      views_manager.show('listings');
-    })
+      .then(() => {
+        views_manager.show('listings');
+      })
+      .catch((error) => {
+        console.error(error);
+        views_manager.show('listings');
+      })
+      .then(() => {
+        toggleModal();
+      });
   });
 
   $('body').on('click', '#property-form__cancel', function() {
