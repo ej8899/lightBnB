@@ -108,14 +108,14 @@ $(() => {
     const data = $(this).serialize();
     submitProperty(data)
       .then(() => {
+        toggleModal(`Got It!`,`We'll review your property listing and once approved, make it live on LightBnB!`);
         views_manager.show('listings');
+        
       })
       .catch((error) => {
+        toggleModal(`Woah!`,`There was an error saving your listing in our database.<BR>${error}`);
         console.error(error);
         views_manager.show('listings');
-      })
-      .then(() => {
-        toggleModal();
       });
   });
 

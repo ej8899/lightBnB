@@ -130,14 +130,6 @@ const initMap = function() {
   map = new google.maps.Map(document.getElementById("map"), mapProp);
 
   //
-  // TODO - build out info window process
-  //
-  let infoWindow = new google.maps.InfoWindow({
-    content:'<h1>fdfd</h1>'
-  });
-  
-
-  //
   //  RIGHT CLICK handler for ENTIRE map
   //
   google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
@@ -164,12 +156,6 @@ const initMap = function() {
     infoWindow.close();
   });
 */
-
-  //
-  // LEFT CLICK handler
-  //
-  // (see external function below)
-
 };
 
 window.initMap = initMap;
@@ -282,7 +268,10 @@ window.addEventListener("scroll", reveal);
 const modal = document.querySelector(".modal");
 const closeButton = document.querySelector(".close-button");
 $("#propertySubmit").removeAttr("style"); // helps eliminate any initial page draw showing the modal window
-const toggleModal = function() {
+const toggleModal = function(title,body) {
+  // modal-title, modal-body
+  $("#modal-title").html(title);
+  $("#modal-body").html(body);
   modal.classList.toggle("show-modal");
 };
 
