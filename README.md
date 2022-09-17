@@ -20,12 +20,11 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 --- 
 ## Features...  
 ![](tweeter-overview.gif)
-- Mobile & desktop friendly.
-  - mobile view under 1024 pixels wide
-  - footer adjustment under 550 pixels wide   
-- Slide open 'tweet box'.
-- Slide open/closed error messages.  
+- Quick view of "My Listings" and "My Reservations"
+(requires logged in user with listings or reservations existing in database)
+- Detailed search for city, minimum cost, maximum cost and minimum rating.  All search options are optional.  
 [( back to top 🔺)](#lightbnb)
+
 ---
 ## Extra Features...
 #### general extras
@@ -49,9 +48,9 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
   - box shadow implementation
   - property listings are subdued to nearly grey scale until mouse-over
   - add project title with css gradient animation
-  - add light/dark mode toggle (persistent with local storage)
+  - add light/dark mode toggle (persistent with local storage)  
+  [( back to top 🔺)](#lightbnb)
 
-[( back to top 🔺)](#lightbnb)
 --- 
 ## Future Plans...
 - allow sorting of any displayed results
@@ -94,7 +93,7 @@ Bonus: favorite state is preserved in localStorage.
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Known Bugs...
-- Scroll bar is forced 'always' on' to prevent page shift
+- Scroll bar is forced 'always' on' to prevent page shift  
 [( back to top 🔺)](#lightbnb)
 ---
 ## Attributions...
