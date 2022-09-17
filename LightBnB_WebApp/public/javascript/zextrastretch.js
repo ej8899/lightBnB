@@ -132,16 +132,11 @@ const initMap = function() {
   //
   //  RIGHT CLICK handler for ENTIRE map
   //
+  /*
   google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
     clearOverlays();            //removes current markers form the map
   });
-
-  //
-  //  RIGHT CLICK handler for MARKER
-  //
-  google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
-    clearOverlays();            //removes current markers form the map
-  });
+  */
 
   /*
   //
@@ -223,7 +218,7 @@ const placeMarker = function(location,city) {
         this.setIcon(icon);
         infoWindow.close();
       });
-
+  
       //
       // LEFT BUTTON CLICK listener on each MARKER
       //
@@ -240,7 +235,13 @@ const placeMarker = function(location,city) {
       });
     });
 };
-
+const clearMapMarkers = function() {
+  //function to clear the markers from the arrays, deleting them from the map
+  for (let i = 0; i < markersArray.length; i++) {
+    markersArray[i].setMap(null);
+  }
+  markersArray.length = 0;
+};
 
 
 //
@@ -264,6 +265,7 @@ window.addEventListener("scroll", reveal);
 
 //
 // code for modal window
+// modal library at http://www.github.com/ej8899/conColors
 //
 const modal = document.querySelector(".modal");
 const closeButton = document.querySelector(".close-button");
@@ -274,12 +276,12 @@ const toggleModal = function(title,body) {
   $("#modal-body").html(body);
   modal.classList.toggle("show-modal");
 };
-
+// modal needs window click handler to clear it
 const windowOnClick = function(event) {
   if (event.target === modal) {
     toggleModal();
   }
 };
-
+// model listeners for general window click and close button
 closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
