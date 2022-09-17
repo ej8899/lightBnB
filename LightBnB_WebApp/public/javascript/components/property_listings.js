@@ -19,8 +19,6 @@ $(() => {
 
   function addProperties(properties, isReservation = false) {
     clearListings();
-    //google.maps.event.trigger(map, 'rightclick', {});  // simulate a right click to clear the map
-    //initMap.clearOverlays();
     clearMapMarkers();
 
     if(properties.length < 1) {

@@ -82,13 +82,44 @@
   align-content: stretch;
   background-color: var(--cardbackgroundcolor);
   box-shadow: 0px 0px 15px #888888;
-
-  transition: filter 4s, opacity 1500ms;
+  
+  transition: filter 4s ease, opacity 1500ms, transform 500ms ease-in-out;
   filter: grayscale(70%);
 }
+
+.property-listing-overlay {
+  border: 2px solid var(--headerbordercolor);
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 15px #888888;
+  color: var(--cardcontentcolor);
+  margin: 20px 0;
+  position: absolute;
+  bottom: 0;
+  left: 490px;
+  padding-left: 20px;
+  right: 0;
+  background-color: var(--cardbackgroundcolor);
+  overflow: hidden;
+  width: 0;
+  height: 200px;
+  transition: .5s ease;
+  z-index: -1;
+}
+.property-container {
+  width: 600px;
+  position: relative;
+}
+.property-container:hover .property-listing-overlay {
+  width: 210px;
+  left: 1;
+}
+
 .property-listing:hover {
-  transition: filter 500ms;
+  transition: filter 500ms, transform 500ms ease-in-out;
   filter: grayscale(1%);
+  position: relative;
+  transform: translate(-100px,0);
 }
 
   .property-listing__title {
@@ -312,14 +343,14 @@ input,textarea,select {
 }
 
 
-.reveal{
+.reveal {
   position: relative;
-  opacity: 0.2;
-  /* filter: blur(10px); */
-  /* transition: 2s opacity ease; */
+  opacity: 0.1;
+  /*filter: blur(10px);*/
+  transition: 2s opacity ease;
 }
 .reveal.active{
-  /* filter: blur(0); */
+  /*filter: blur(0);*/
   opacity: 1;
 }
 

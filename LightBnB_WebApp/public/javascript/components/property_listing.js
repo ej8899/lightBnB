@@ -5,11 +5,16 @@ $(() => {
   function createListing(property, isReservation, pCount) {
     // error check for broken images via bad url or missing image at url
     checkImage(property.thumbnail_photo_url, property.id);
-    getGeo(property.city,property.province);
+    
+    let timeOut = Math.floor(Math.random() * (1400 - 30 + 1)) + 30; // misc numbers for randomizing some time
+    // get geo coordinates for city, province, then place map markers - do it with 'style': staggering the marker drops
+    setTimeout(() => {
+      getGeo(property.city,property.province);
+    }, timeOut);
 
     let revealClass;
     pCount > 1 ? revealClass="reveal" : revealClass="";
-    
+
     // process star rating
     const fullStar =  `<i class="fa-solid fa-star"></i>`;
     const halfStar =  `<i class="fa-solid fa-star-half-stroke"></i>`;
@@ -41,17 +46,16 @@ $(() => {
     let actualRating = Math.round(property.average_rating * 100) / 100; // out of 5
     let toolTipRating = "Exact rating: " + actualRating + " / 5.";
     return `
-    <article class="property-listing ${revealClass}">
+    <div class="property-container ${revealClass}">
+    <article class="property-listing">
         <section class="property-listing__preview-image">
           <img src="${property.thumbnail_photo_url}" alt="house" class="imgthumb" id="listingid${property.id}">
         </section>
         <section class="property-listing__details">
           <h3 class="property-listing__title">${property.title}</h3>
           <ul class="property-listing__details">
-            <li>beds: ${property.number_of_bedrooms} / baths: ${property.number_of_bathrooms} / parking: ${property.parking_spaces}</li>
-            <!--<li>number_of_bathrooms: ${property.number_of_bathrooms}</li>-->
-            <!--<li>parking_spaces: ${property.parking_spaces}</li>-->
-            <li>city: ${property.city}, ${property.province}</li>
+            ${property.street},<br>
+            ${property.city}, ${property.province}
           </ul>
           <p>${isReservation ? 
             `booked: ${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}` 
@@ -62,6 +66,16 @@ $(() => {
           </footer>
         </section>
       </article>
+        <div class="property-listing-overlay">
+        <ul class="property-listing__details">
+        <big><BR>
+        ${property.number_of_bedrooms}&nbsp;<i class="fa-solid fa-bed"></i><BR><BR>
+        ${property.number_of_bathrooms}&nbsp;<i class="fa-solid fa-bath"></i><BR><BR>
+        ${property.parking_spaces}&nbsp;<i class="fa-solid fa-car-side"></i>
+        </big>
+        </ul>
+        </div>
+      </div>
     `
   }
 
