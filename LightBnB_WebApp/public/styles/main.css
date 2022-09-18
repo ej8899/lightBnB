@@ -353,7 +353,10 @@ input,textarea,select {
   /*filter: blur(0);*/
   opacity: 1;
 }
-
+.fadeout {
+  opacity: 0;
+  transition: 2s opacity ease;
+}
 
 
 /*
@@ -407,4 +410,40 @@ input,textarea,select {
   visibility: visible;
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.back-top {
+  bottom: 30px;
+  right: 30px;
+  position: fixed;
+  color: var(--dutch-white);
+  font-size: 3em;
+  border-radius: 25px;
+  box-shadow: 0px 0px 15px #888888;
+  padding: 2px;
+  background-color: var(--black-olive);
+  animation: bounce-in 1s ease;
+  transition: color 500ms;
+}
+.back-top:hover {
+  color: var(--persian-red);
+  cursor: pointer;
+  transition: color 500ms;
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-2000px);
+  }
+  60% {
+    transform: translateX(0px);
+  }
+  80% { 
+    transform: translateX(-30px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-5px); 
+  }
 }

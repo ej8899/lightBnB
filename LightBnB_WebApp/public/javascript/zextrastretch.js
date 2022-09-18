@@ -6,6 +6,34 @@
 // global vars for GOOGLE MAP API
 let map,mapMarkers,markersArray;
 
+
+// Actions on Document Ready
+$(document).ready(function() {
+  $('.back-top').hide();
+  
+  $('#back-top').click(function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+  
+  $(window).on("scroll", function() {
+    // Show & Hide Back To Top Button
+    if ($(window).scrollTop() > 300) {
+      $('.back-top').removeClass("fadeout");
+      $('.back-top').show();
+    } else {
+      if(!$('#back-top').hasClass("fadeout")) {
+        $('.back-top').addClass("fadeout");
+        setTimeout(hideBackTop,2000); // hide it but after timeout so fade can finish
+      }
+    }
+  });
+});
+// HELPER for hiding back to top button - hiding and showing allows applied animation to restart
+const hideBackTop = () => {
+  $('.back-top').hide();
+};
+
+
 const checkImage = (url,id) => {
   let image = new Image();
   

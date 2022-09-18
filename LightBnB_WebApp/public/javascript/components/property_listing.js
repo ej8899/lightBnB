@@ -67,13 +67,20 @@ $(() => {
         </section>
       </article>
         <div class="property-listing-overlay">
+        <table border=0 width=180><tr>
+        <td width=50%>
         <ul class="property-listing__details">
-        <big><BR>
+        <big><BR><B>
         ${property.number_of_bedrooms}&nbsp;<i class="fa-solid fa-bed"></i><BR><BR>
         ${property.number_of_bathrooms}&nbsp;<i class="fa-solid fa-bath"></i><BR><BR>
         ${property.parking_spaces}&nbsp;<i class="fa-solid fa-car-side"></i>
-        </big>
+        </B></big>
         </ul>
+        </td>
+        <td align=center>
+        <i class="fa-solid fa-house fa-xl" style="color:#505050ff"></i>
+        </td>
+        </tr></table>
         </div>
       </div>
     `
