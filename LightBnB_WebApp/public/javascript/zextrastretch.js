@@ -4,7 +4,7 @@
 //
 
 // global vars for GOOGLE MAP API
-let map,mapMarkers,markersArray;
+let map,mapMarkers,markersArray,mapsKey='AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k';
 
 
 // Actions on Document Ready
@@ -23,7 +23,7 @@ $(document).ready(function() {
     } else {
       if(!$('#back-top').hasClass("fadeout")) {
         $('.back-top').addClass("fadeout");
-        setTimeout(hideBackTop,2000); // hide it but after timeout so fade can finish
+        setTimeout(hideBackTop,2300); // hide it but after timeout so fade can finish
       }
     }
   });
@@ -129,7 +129,7 @@ const initMap = function() {
   markersArray = [];          // array to hold the map markers
 
   /*
-  // WORKING CODE: this gets all cities and maps them  -- might be a bit too much for the map (258 pins)
+  // WORKING CODE: this gets all cities and maps them  -- might be a bit too much for the map (258 pins), plus API request costs
    getAllTheCities()
     .then(function(json) {
       //console.log(json.properties);  // test ok
@@ -138,7 +138,7 @@ const initMap = function() {
         getGeo(element.city,element.province);
       });
     });
-*/
+  */
 
   const clearOverlays = function() {
     //function to clear the markers from the arrays, deleting them from the map
@@ -275,7 +275,7 @@ const initMap = function() {
 
 window.initMap = initMap;
 
-const placeMarker = function(location,city) {
+const placeMarker = function(location,city,prov) {
   // CUSTOM icon for LightBNB (bed icon)
   let iconBase = {
     path: "M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zM176 288c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80z",
@@ -296,9 +296,9 @@ const placeMarker = function(location,city) {
   //  check for existing marker here - if so, just return so we're not doing useless work
   for (let x = 0; x < markersArray.length; x++) {
     let tempLoc = JSON.parse(JSON.stringify(markersArray[x].getPosition()));
-    console.log(JSON.stringify(markersArray[x].getPosition()));
+    //console.log(JSON.stringify(markersArray[x].getPosition()));
     //console.log(JSON.parse(markersArray[x].getPosition()));
-    console.log(markersArray[x].getPosition());
+    //console.log(markersArray[x].getPosition());
     if (location.lat === tempLoc.lat) {
       if (location.lng === tempLoc.lng) {
         return;
@@ -314,6 +314,7 @@ const placeMarker = function(location,city) {
     icon: icon,
     //title: city, // title is default for maps hover/tooltip tag - don't use it to keep the hover tooltip "off"
     mytitle: city, // we can use our own defined options like this one
+    myprov: prov,
   });
   markersArray.push(marker);        //adds new marker to the markers array
 
@@ -361,7 +362,8 @@ const placeMarker = function(location,city) {
       google.maps.event.addListener(marker, 'click', function() {
         //let citysearch = this.getTitle(); // this is a built in getter for marker object title element
         let citysearch = this.get('mytitle'); // we can do this get get our own marker object items
-        
+        let theprov = this.get('myprov');
+        googlePlaceSearch(citysearch,theprov);
         getAllListings(`city=${citysearch}`)
           .then(function(json) {
             propertyListings.addProperties(json.properties);
@@ -379,7 +381,13 @@ const clearMapMarkers = function() {
 };
 
 
-
+const googlePlaceSearch = (city,prov) => {
+  var config = {
+    method: 'get',
+    url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=YOUR_API_KEY',
+    headers: { }
+  };
+};
 
 
 //

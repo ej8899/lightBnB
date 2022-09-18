@@ -58,6 +58,10 @@
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .property-listings {
   width: 100%;
   display: flex;
@@ -353,10 +357,7 @@ input,textarea,select {
   /*filter: blur(0);*/
   opacity: 1;
 }
-.fadeout {
-  opacity: 0;
-  transition: 2s opacity ease;
-}
+
 
 
 /*
@@ -412,6 +413,11 @@ input,textarea,select {
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
+.fadeout {
+  opacity: 0;
+  transition: 2s opacity ease;
+}
+
 .back-top {
   bottom: 30px;
   right: 30px;
@@ -423,12 +429,12 @@ input,textarea,select {
   padding: 2px;
   background-color: var(--black-olive);
   animation: bounce-in 1s ease;
-  transition: color 500ms;
+  transition: color 500ms, opacity 2s;
 }
 .back-top:hover {
   color: var(--persian-red);
   cursor: pointer;
-  transition: color 500ms;
+  transition: color 500ms opacity 2s;
 }
 
 @keyframes bounce-in {
