@@ -53,10 +53,10 @@ $(() => {
         </section>
         <section class="property-listing__details">
           <h3 class="property-listing__title">${property.title}</h3>
-          <ul class="property-listing__details">
+          
             ${property.street},<br>
             ${property.city}, ${property.province}
-          </ul>
+          
           <p>${isReservation ? 
             `booked: ${moment(property.start_date).format('ll')} - ${moment(property.end_date).format('ll')}` 
             : ``}&nbsp;</p>
@@ -106,7 +106,7 @@ $(() => {
 //
 // get lat long of city
 // -- NOTE check local database before using API - if we've fetch from API, add info into internal DB so we don't have to fetch again.
-//
+// google API is $0.005 per request for lat/long info
 const geoLocationDb = {
 
   "Spruce Grove": {

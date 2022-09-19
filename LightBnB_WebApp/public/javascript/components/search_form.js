@@ -1,7 +1,9 @@
 $(() => {
 
   const $searchPropertyForm = $(`
+  
   <form action="/properties" method="get" id="search-property-form" class="search-property-form">
+  <h2>Search:</h2>
       <div class="search-property-form__field-wrapper">
         <label for="search-property-form__city">City</label>
         <input type="text" name="city" placeholder="City" id="search-property-form__city">
@@ -20,8 +22,8 @@ $(() => {
       </div>
 
       <div class="search-property-form__field-wrapper">
-          <button>Search</button>&nbsp;&nbsp;
-          <a id="search-property-form__cancel" href="#">Cancel</a>
+          <button class="button">Search</button>&nbsp;&nbsp;
+          <a id="search-property-form__cancel" class="button" href="#">Cancel</a>
       </div>
     </form>
   `);

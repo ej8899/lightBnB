@@ -19,9 +19,11 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 8. [Updates](#updates)
 --- 
 ## Features...  
-![](tweeter-overview.gif)
+![](overview-ani.gif)
+- AirBnB type basic clone to work with SQL queries on a Postgres database backend.
 - Quick view of "My Listings" and "My Reservations"
 (requires logged in user with listings or reservations existing in database)
+- Create Listing to add property listings to the database.
 - Detailed search for city, minimum cost, maximum cost and minimum rating.  All search options are optional.  
 [( back to top 🔺)](#lightbnb)
 
@@ -39,7 +41,8 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 
 #### google maps integration:
   - city level display only as database has ficticious street addresses
-  - custom place markers
+    - unknown city info is pulled from google api, and optimized to save future fetch costs
+  - customized place markers
   - left clickable markers perform database search on city
   - add style to google maps "info window"  
 
@@ -59,6 +62,8 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 - new listings go live immediately
 - restyle "submit" form button
 - restyle "cancel" link on forms
+- grab city 'about' and photo from google API
+  (just have to monitor costing for this)
 - style entire project for responsive design: mobile to desktop  
 [( back to top 🔺)](#lightbnb)
 --- 

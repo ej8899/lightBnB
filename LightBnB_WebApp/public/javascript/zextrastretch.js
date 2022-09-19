@@ -9,6 +9,13 @@ let map,mapMarkers,markersArray,mapsKey='AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k
 
 // Actions on Document Ready
 $(document).ready(function() {
+  // setup for SEARCH modal button
+  $('#filtertoggleicon').click(function() {
+    // $searchModalForm
+    toggleModal('Filter Results',$searchModalForm);
+  });
+
+
   $('.back-top').hide();
   
   $('#back-top').click(function() {
@@ -431,3 +438,31 @@ const windowOnClick = function(event) {
 // model listeners for general window click and close button
 closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
+
+
+
+const $searchModalForm = $(`
+  
+  <form action="/properties" method="get" id="search-property-form" class="search-property-form">
+      <div class="search-property-form__field-wrapper">
+        <label for="search-property-form__city">City</label>
+        <input type="text" name="city" placeholder="City" id="search-property-form__city">
+      </div>
+
+      <div class="search-property-form__field-wrapper">
+        <label for="search-property-form__minimum-price-per-night">Minimum Cost</label>
+        <input type="number" name="minimum_price_per_night" placeholder="Minimum Cost" id="search-property-form__minimum-price-per-night">
+        <label for="search-property-form__maximum-price-per-night">Maximum Cost</label>
+        <input type="number" name="maximum_price_per_night" placeholder="Maximum Cost" id="search-property-form__maximum-price-per-night">
+      </div>
+
+      <div class="search-property-form__field-wrapper">
+        <label for="search-property-form__minimum-rating">Minimum Rating</label>
+        <input type="number" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating">
+      </div>
+
+      <div class="search-property-form__field-wrapper">
+          <button class="button" onclick="toggleModal()">Search</button>&nbsp;&nbsp;
+      </div>
+    </form>
+  `);

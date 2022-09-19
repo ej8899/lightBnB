@@ -4,6 +4,7 @@ $(() => {
 
   const $newPropertyForm = $(`
   <form action="/api/properties" method="post" id="new-property-form" class="new-property-form">
+  <h2>Create New Property Listing:</h2>
       <div class="new-property-form__field-wrapper">
         <label for="new-property-form__title">Title</label>
         <input type="text" name="title" placeholder="Title" id="new-property-form__title">
@@ -80,8 +81,9 @@ $(() => {
         </div>
 
         <div class="new-property-form__field-wrapper">
-            <button>Create</button>&nbsp;&nbsp;
-            <a id="property-form__cancel" href="#">Cancel</a>
+            <button class="button">Create</button>&nbsp;&nbsp;
+            <a id="property-form__cancel" class="button" href="#">Cancel</a>
+            <br clear=all>&nbsp;
         </div>
         
     </form>
