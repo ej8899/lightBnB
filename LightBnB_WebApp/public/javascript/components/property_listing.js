@@ -15,6 +15,9 @@ $(() => {
     let revealClass;
     pCount > 1 ? revealClass="reveal" : revealClass="";
 
+    let thePrice;
+    thePrice = ((property.cost_per_night/100.0) * currencyMultiplier).toFixed(2);
+
     // process star rating
     const fullStar =  `<i class="fa-solid fa-star"></i>`;
     const halfStar =  `<i class="fa-solid fa-star-half-stroke"></i>`;
@@ -62,7 +65,7 @@ $(() => {
             : ``}&nbsp;</p>
           <footer class="property-listing__footer">
             <div class="property-listing__rating tooltip expand stars" data-title="${toolTipRating}">${finalStars}</div>
-            <div class="property-listing__price">$${property.cost_per_night/100.0}/night</div>
+            <div class="property-listing__price">$${thePrice} per night</div>
           </footer>
         </section>
       </article>
@@ -1131,7 +1134,7 @@ const geoLocationDb = {
 },
 };
 const getGeo = (city,prov) => {
-  const apiKey = 'AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k';
+  const apiKey = mapsKey;
   const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?key=${apiKey}&address=${city},${prov}&sensor=false`;
   // check internal database FIRST and if not found, only then fetch via API (each request is $0.005)
   if(geoLocationDb[city] !== undefined) {

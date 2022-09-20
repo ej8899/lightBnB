@@ -58,7 +58,6 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 ## Future Plans...
 - allow sorting of any displayed results
 - dark mode styling on the map
-- tweak pricing to have proper 2 decimals
 - new listings go live immediately
 - restyle "submit" form button
 - restyle "cancel" link on forms
@@ -98,6 +97,7 @@ Bonus: favorite state is preserved in localStorage.
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Known Bugs...
+- Some price/night shows only 1 decimal (fixed 2022-09-19)
 - Scroll bar is forced 'always' on' to prevent page shift  
 [( back to top 🔺)](#lightbnb)
 ---

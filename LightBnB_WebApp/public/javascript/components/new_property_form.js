@@ -110,7 +110,7 @@ $(() => {
     const data = $(this).serialize();
     submitProperty(data)
       .then(() => {
-        toggleModal(`Got It!`,`We'll review your property listing and once approved, make it live on LightBnB!`);
+        toggleModal(`Got It!`,`<BR>We'll review your property listing and once approved, make it live on LightBnB!<BR>&nbsp;`);
         views_manager.show('listings');
         
       })

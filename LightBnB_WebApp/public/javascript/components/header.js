@@ -33,6 +33,7 @@ $(() => {
           <li class="my_listing_button hoverbutton">My Listings</li>
           <li class="my_reservations_button hoverbutton">My Reservations</li>
           <li class="logout_button hoverbutton">Log Out ( ${user.name} )</li>
+          <li class="nav_currency_button hoverbutton">$ CAD</li>
           <li style="padding-left:20px" class="tooltip expand" data-title="latest version on github"><a href="https://github.com/ej8899/lightBnB" target="new"><i class="fa-brands fa-github fa-lg"></i></a></li>
           <li style="padding-left:5px" class="tooltip expand" data-title="check us out on linkedin"><a href="https://www.linkedin.com/in/ernie-johnson-3b77829b/ target="new"><i class="fa-brands fa-linkedin fa-lg"></i></a></li>
           <li><div class="switchcontainer tooltip expand" data-title="toggle light & dark mode"><i class="fa-solid fa-sun darkicon" id="dayicon"></i>&nbsp;<input type="checkbox" class="toggle" unchecked onclick="toggleDarkMode();" id="darkmodeswitch"><i class="fa-solid fa-moon darkicon" id="nighticon" style="padding-left: 4px;"></i></div></li>
@@ -51,6 +52,16 @@ $(() => {
     updateHeader(json.user);
   });
 
+  $("header").on("click", '.nav_currency_button', function() {
+    currencyHTML = `
+    <button class="currencyButton" role="button" onClick="changeCurrency('CAD');">CAD</button>
+    <button class="currencyButton" role="button" onClick="changeCurrency('USD');">USD</button>
+    <button class="currencyButton" role="button" onClick="changeCurrency('MXN');">MXN</button>
+    <button class="currencyButton" role="button" onClick="changeCurrency('EUR');">EUR</button>
+    <button class="currencyButton" role="button" onClick="changeCurrency('BZD');">BZD</button>
+    `;
+    toggleModal('Select a Currency',currencyHTML);
+  });
   $("header").on("click", '.my_reservations_button', function() {
     propertyListings.clearListings();
     getAllReservations()
@@ -99,3 +110,15 @@ $(() => {
   });
 
 });
+
+//
+// helper for when we need a refresh and load of all listings
+//
+const clearandGet = () => {
+  propertyListings.clearListings();
+  getAllListings()
+    .then(function(json) {
+      propertyListings.addProperties(json.properties);
+      views_manager.show('listings');
+  });
+};

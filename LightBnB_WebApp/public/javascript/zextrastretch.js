@@ -4,8 +4,8 @@
 //
 
 // global vars for GOOGLE MAP API
-let map,mapMarkers,markersArray,mapsKey='AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k';
-
+let map,mapMarkers,markersArray,mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
+let currencyMultiplier = 1;
 
 // Actions on Document Ready
 $(document).ready(function() {
@@ -14,6 +14,7 @@ $(document).ready(function() {
     // $searchModalForm
     toggleModal('Filter Results',$searchModalForm);
   });
+
 
 
   $('.back-top').hide();
@@ -306,6 +307,7 @@ const placeMarker = function(location,city,prov) {
     //console.log(JSON.stringify(markersArray[x].getPosition()));
     //console.log(JSON.parse(markersArray[x].getPosition()));
     //console.log(markersArray[x].getPosition());
+    //console.log(typeof(markersArray[x].getPosition()));
     if (location.lat === tempLoc.lat) {
       if (location.lng === tempLoc.lng) {
         return;
@@ -443,26 +445,65 @@ window.addEventListener("click", windowOnClick);
 
 const $searchModalForm = $(`
   
-  <form action="/properties" method="get" id="search-property-form" class="search-property-form">
-      <div class="search-property-form__field-wrapper">
-        <label for="search-property-form__city">City</label>
-        <input type="text" name="city" placeholder="City" id="search-property-form__city">
-      </div>
+  <form action="/properties" method="get" id="search-property-form" style="width:100%">
+      
+      <div style="width:100%">
+        <div>
+        <div>City:</div>
+        <input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
+        </div><br>
 
-      <div class="search-property-form__field-wrapper">
-        <label for="search-property-form__minimum-price-per-night">Minimum Cost</label>
-        <input type="number" name="minimum_price_per_night" placeholder="Minimum Cost" id="search-property-form__minimum-price-per-night">
-        <label for="search-property-form__maximum-price-per-night">Maximum Cost</label>
-        <input type="number" name="maximum_price_per_night" placeholder="Maximum Cost" id="search-property-form__maximum-price-per-night">
-      </div>
-
-      <div class="search-property-form__field-wrapper">
-        <label for="search-property-form__minimum-rating">Minimum Rating</label>
-        <input type="number" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating">
-      </div>
+        Minimum Price: <output id="minprice">0</output><br clear=all>
+        <input type="range" value="0" min=0 max=1000 step=20 name="maximum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
+        <BR>
+        Maximum Price: <output id="maxprice">1000</output><br clear=all>
+        <input type="range" value="1000" min=0 max=1000 step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
+        <BR><BR>
+        
+        Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
+        <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:90%">
+        <br clear=all>
+        
 
       <div class="search-property-form__field-wrapper">
           <button class="button" onclick="toggleModal()">Search</button>&nbsp;&nbsp;
       </div>
+      </div>
     </form>
   `);
+
+
+//
+//  changeCurrency()
+//  pass (data) if in modal and sending a new currency to use, otherwise if no (data), we try to read existing data settings
+//  in reality, we'd use an API to fetch accurate exchange rates
+//
+const changeCurrency = function(data) {
+  if (data) {
+    toggleModal();
+  } else {
+    // read from localStorage (FUTURE USE)
+  }
+  switch (data) {
+  case 'CAD':
+    currencyMultiplier = 1.0;
+    break;
+  case 'USD':
+    currencyMultiplier = 0.75;
+    break;
+  case 'MXN':
+    currencyMultiplier = 15.04;
+    break;
+  case 'EUR':
+    currencyMultiplier = 0.752;
+    break;
+  case 'BZD':
+    currencyMultiplier = 1.514;
+    break;
+  }
+  // set the new currency label
+  // .nav_currency_button '$ CAD'
+  $(".nav_currency_button").html("$ "+data);
+  clearandGet();
+  // save to localStorage (FUTURE USE)
+};

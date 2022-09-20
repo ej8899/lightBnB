@@ -315,6 +315,7 @@ body {
   border-radius: 15px;
   border: 2px solid;
   max-width: 800px;
+  width: 800px;
   margin: 0 auto;
 }
 .gm-ui-hover-effect {
@@ -344,7 +345,10 @@ input,textarea,select {
 }
 
 #main-content {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -379,7 +383,6 @@ input,textarea,select {
   transform: scale(1.1);
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
-
 .modal-content {
   position: absolute;
   top: 50%;
@@ -387,11 +390,18 @@ input,textarea,select {
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 1rem 1.5rem;
-  width: 24rem;
+  width: 28rem;
   border-radius: 0.5rem;
   color: var(--cardcontentcolor);
 }
-
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.modal-body {
+  font-size: 1rem;
+  padding-top: 1.5rem;
+}
 .close-button {
   float: right;
   width: 1.5rem;
@@ -401,11 +411,9 @@ input,textarea,select {
   border-radius: 0.25rem;
   background-color: lightgray;
 }
-
 .close-button:hover {
   background-color: darkgray;
 }
-
 .show-modal {
   opacity: 1;
   z-index: 999;
@@ -414,10 +422,16 @@ input,textarea,select {
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
+
+
 .fadeout {
   opacity: 0;
   transition: 2s opacity ease;
 }
+
+/*
+  BACK TO TOP button
+*/
 
 .back-top {
   bottom: 30px;
@@ -461,16 +475,16 @@ input,textarea,select {
 BUTTON STYLING
 
 */
-
 .button {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-decoration: none;
   display: inline-block;
   padding: 0.75rem 1.25rem;
   border-radius: 10rem;
+  border: 2px solid;
   border-color: var(--davys-grey);
-  background-color: var(--davys-grey);
-  color: var(--dutch-white);
+  background-color: var(--dutch-white);
+  color: var(--davys-grey);
   text-transform: uppercase;
   font-size: 1rem;
   letter-spacing: 0.15rem;
@@ -479,41 +493,17 @@ BUTTON STYLING
   overflow: hidden;
   z-index: 1;
 }
-.button:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--davys-grey);
-  border-color: var(--davys-grey);
-  border-radius: 10rem;
-  z-index: -2;
-}
-.button:before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 100%;
-  border-color: var(--davys-grey);
-  background-color: var(--dutch-white);
-  transition: all 0.3s;
-  border-radius: 10rem;
-  z-index: -1;
-}
 .button:hover {
   color: #fff;
 }
-.button:hover:before {
-  width: 100%;
-}
+
 
 
 .filtertoggle {
-  width:800px;
+  display: flex;
+  justify-content: flex-end;
+  width: 800px;
+  position: relative;
   padding-top: 15px;
   text-align: right;
 }
@@ -524,9 +514,39 @@ BUTTON STYLING
   margin: 8px;
   padding: 6px;
   width: auto;
+  opacity: 0.7;
   transition: all 0.3s;
 }
 .filtertoggleicon:hover {
   background-color: whitesmoke;
+  opacity: 1;
   transition: all 0.3s;
+}
+
+
+/* CSS */
+.currencyButton {
+  background-color: rgba(51, 51, 51, 0.05);
+  border-radius: 8px;
+  border-width: 0;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.currencyButton:hover {
+  background-color: rgba(51, 51, 51, 0.25);
 }
