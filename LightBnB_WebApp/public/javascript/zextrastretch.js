@@ -12,8 +12,35 @@ $(document).ready(function() {
 
   // setup for SEARCH modal button
   $('#filtertoggleicon').click(function() {
+    maxPrice = 1000;  // base rate for CAD -- note we'd need to adjust this for different currencies, and adjust back to base for search
+    const $searchModalForm = $(`
+    <form action="/properties" method="get" id="filterform" class="search-property-form">
+    <div style="width:100%">
+      <div>
+      <div>City:</div>
+      <input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
+      </div><br>
+
+      Minimum Price: <output id="minprice">0</output><br clear=all>
+      <input type="range" value="0" min=0 max=${maxPrice} step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
+      <BR>
+      Maximum Price: <output id="maxprice">1000</output><br clear=all>
+      <input type="range" value="1000" min=0 max=${maxPrice} step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
+      <BR><BR>
+      
+      Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
+      <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:90%">
+      <br clear=all>
+      
+
+      <div class="search-property-form__field-wrapper">
+          <button class="button" ">Search</button>&nbsp;&nbsp;
+      </div>
+    </div>
+    </form>
+    `);
     // $searchModalForm
-    toggleModal('Filter Results:',$searchModalForm);
+    toggleModal('Filter Results',$searchModalForm);
     //set click handler on submit
     $("#filterform").on('submit', function(event) {
       toggleModal();
@@ -318,7 +345,9 @@ const placeMarker = function(location,city,prov) {
     //console.log(JSON.stringify(markersArray[x].getPosition()));
     //console.log(JSON.parse(markersArray[x].getPosition()));
     //console.log(markersArray[x].getPosition());
-    //console.log(typeof(markersArray[x].getPosition()));
+   //console.log(typeof(markersArray[x].getPosition()));
+   let tempx = markersArray[x].getPosition();
+   console.log(tempx)
     if (location.lat === tempLoc.lat) {
       if (location.lng === tempLoc.lng) {
         return;
@@ -348,7 +377,7 @@ const placeMarker = function(location,city,prov) {
     .then(function(json) {
       tempCount = (json.properties[0].count);
       console.log('count for ' + city + ':' + tempCount);
-      // throw('error')  (a test for .finally)
+      throw('error')  //(a test for .finally)
     })
     .catch((error) => {
       console.log('error occured: ' + error.message);
@@ -451,37 +480,6 @@ const windowOnClick = function(event) {
 // model listeners for general window click and close button
 closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
-
-
-
-const $searchModalForm = $(`
-      <form action="/properties" method="get" id="filterform" class="search-property-form">
-      <div style="width:100%">
-        <div>
-        <div>City:</div>
-        <input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
-        </div><br>
-
-        Minimum Price: <output id="minprice">0</output><br clear=all>
-        <input type="range" value="0" min=0 max=1000 step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
-        <BR>
-        Maximum Price: <output id="maxprice">1000</output><br clear=all>
-        <input type="range" value="1000" min=0 max=1000 step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
-        <BR><BR>
-        
-        Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
-        <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:90%">
-        <br clear=all>
-        
-
-        <div class="search-property-form__field-wrapper">
-            <button class="button" ">Search</button>&nbsp;&nbsp;
-        </div>
-      </div>
-      </form>
-  `);
-
-
 
 
 //
