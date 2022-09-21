@@ -60,7 +60,7 @@ $(() => {
           <label for="new-property-form__country">Country</label>
           <select id="new-property-form__country" name="country" data-country-selected="CA">
               <option value="US">United States</option>
-              <option value="CA">Canada</option>
+              <option value="CA" selected>Canada</option>
               <option value="BR">Brazil</option>
           </select>
         </div>

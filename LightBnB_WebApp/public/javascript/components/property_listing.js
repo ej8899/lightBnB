@@ -17,6 +17,7 @@ $(() => {
 
     let thePrice;
     thePrice = ((property.cost_per_night/100.0) * currencyMultiplier).toFixed(2);
+    // get our currency label
 
     // process star rating
     const fullStar =  `<i class="fa-solid fa-star"></i>`;

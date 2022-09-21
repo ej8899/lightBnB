@@ -9,20 +9,29 @@ let currencyMultiplier = 1;
 
 // Actions on Document Ready
 $(document).ready(function() {
+
   // setup for SEARCH modal button
   $('#filtertoggleicon').click(function() {
     // $searchModalForm
-    toggleModal('Filter Results',$searchModalForm);
+    toggleModal('Filter Results:',$searchModalForm);
+    //set click handler on submit
+    $("#filterform").on('submit', function(event) {
+      toggleModal();
+      event.preventDefault();
+      const data = $(this).serialize();
+      getAllListings(data).then(function( json ) {      
+        propertyListings.addProperties(json.properties);
+        views_manager.show('listings');
+      });
+    });
   });
 
 
-
+  // setup "back to top" scroll button & deal with the scrolling
   $('.back-top').hide();
-  
   $('#back-top').click(function() {
     window.scrollTo({top: 0, behavior: 'smooth'});
   });
-  
   $(window).on("scroll", function() {
     // Show & Hide Back To Top Button
     if ($(window).scrollTop() > 300) {
@@ -31,17 +40,19 @@ $(document).ready(function() {
     } else {
       if(!$('#back-top').hasClass("fadeout")) {
         $('.back-top').addClass("fadeout");
-        setTimeout(hideBackTop,2300); // hide it but after timeout so fade can finish
+        setTimeout(function() {
+          $('.back-top').hide();
+        }, 2300);
       }
     }
   });
-});
-// HELPER for hiding back to top button - hiding and showing allows applied animation to restart
-const hideBackTop = () => {
-  $('.back-top').hide();
-};
+}); // END DOCUMENT READY
 
 
+//
+// checkImage()
+// check if image is valid at detination URL - if not, use a built in "missing image" to prevent broken image link
+//
 const checkImage = (url,id) => {
   let image = new Image();
   
@@ -444,9 +455,7 @@ window.addEventListener("click", windowOnClick);
 
 
 const $searchModalForm = $(`
-  
-  <form action="/properties" method="get" id="search-property-form" style="width:100%">
-      
+      <form action="/properties" method="get" id="filterform" class="search-property-form">
       <div style="width:100%">
         <div>
         <div>City:</div>
@@ -454,7 +463,7 @@ const $searchModalForm = $(`
         </div><br>
 
         Minimum Price: <output id="minprice">0</output><br clear=all>
-        <input type="range" value="0" min=0 max=1000 step=20 name="maximum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
+        <input type="range" value="0" min=0 max=1000 step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
         <BR>
         Maximum Price: <output id="maxprice">1000</output><br clear=all>
         <input type="range" value="1000" min=0 max=1000 step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
@@ -465,12 +474,35 @@ const $searchModalForm = $(`
         <br clear=all>
         
 
-      <div class="search-property-form__field-wrapper">
-          <button class="button" onclick="toggleModal()">Search</button>&nbsp;&nbsp;
+        <div class="search-property-form__field-wrapper">
+            <button class="button" ">Search</button>&nbsp;&nbsp;
+        </div>
       </div>
-      </div>
-    </form>
+      </form>
   `);
+
+
+
+
+//
+//
+//
+const filterSearch = function() {
+  const data = $('#filterform').serialize();
+  toggleModal();
+  alert(data);
+  propertyListings.clearListings();
+  getAllListings(data)
+    .then(function(json) {
+      alert(json.properties)
+      propertyListings.addProperties(json.properties);
+      views_manager.show('listings');
+    })
+    .catch((err) => {
+      alert(err);
+    });
+};
+
 
 
 //
@@ -502,8 +534,15 @@ const changeCurrency = function(data) {
     break;
   }
   // set the new currency label
-  // .nav_currency_button '$ CAD'
   $(".nav_currency_button").html("$ "+data);
   clearandGet();
   // save to localStorage (FUTURE USE)
+};
+
+const showPrivacyPolicy = () => {
+  let privacyPolicy = `
+  This privacy policy is to inform you on how the information collected on this website is used. Be sure to read this privacy policy before using our website or submitting any personal information and be aware that by using our website, you are accepting the practices described in this policy. We reserve the right to make changes to this website's policy at any time without prior notice. Be also aware that privacy practices set forth in this here are for this website only and do not apply for any other linking websites.<BR><BR>
+  ....etc, etc, etc.
+  `;
+  toggleModal('Privacy Policy',privacyPolicy);
 };

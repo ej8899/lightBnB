@@ -59,8 +59,10 @@ $(() => {
     <button class="currencyButton" role="button" onClick="changeCurrency('MXN');">MXN</button>
     <button class="currencyButton" role="button" onClick="changeCurrency('EUR');">EUR</button>
     <button class="currencyButton" role="button" onClick="changeCurrency('BZD');">BZD</button>
+    <br><BR>
+    * Disclaimer:  Currency selection is "proof of concept" only.  Exchange rates may not be accurate as they are hard-coded into the application.  In deployment, API calls to a currency exchange system would be made to ensure accurate results.
     `;
-    toggleModal('Select a Currency',currencyHTML);
+    toggleModal('Select a Currency:',currencyHTML);
   });
   $("header").on("click", '.my_reservations_button', function() {
     propertyListings.clearListings();

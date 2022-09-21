@@ -34,6 +34,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
   - cleanup nav bar
   - added tooltips on various items
   - add "no listings found" message where appropriate
+  - add currency selection modal (CAD, USD, MXN supported)
   - add confirmation modal to 'create listing' option  
  
 #### converted ratings to stars (out of 5)
@@ -98,6 +99,7 @@ Bonus: favorite state is preserved in localStorage.
 --- 
 ## Known Bugs...
 - Some price/night shows only 1 decimal (fixed 2022-09-19)
+- Filter Results 'range sliders' don't prevent min price to stay under max price and max price to be greater than min price
 - Scroll bar is forced 'always' on' to prevent page shift  
 [( back to top 🔺)](#lightbnb)
 ---

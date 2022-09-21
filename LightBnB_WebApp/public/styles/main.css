@@ -206,6 +206,7 @@ CUSTOM CSS:
   text-decoration: underline;
   text-decoration-color: orange;
   text-decoration-thickness: 3px;
+  transition: all 300ms;
 }
 
 
@@ -335,6 +336,16 @@ body {
   color: var(--black-olive);
   margin: 1px;
   border-radius: 5px 5px 0 0; /* In accordance with the rounding of the default infowindow corners. */
+}
+
+.pagefooter {
+  border-top: 1px solid var(--black-olive);
+  font-size: 1rem;
+  font-family: 'Archivo', sans-serif;
+  padding: 10px;
+  padding-top: 20px;
+  width: 100%;
+  margin-top: 200px;
 }
 
 
@@ -532,7 +543,7 @@ BUTTON STYLING
   color: #333333;
   cursor: pointer;
   display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -540,7 +551,7 @@ BUTTON STYLING
   margin: 0;
   padding: 10px 12px;
   text-align: center;
-  transition: all 200ms;
+  transition: all 500ms;
   vertical-align: baseline;
   white-space: nowrap;
   user-select: none;
@@ -550,3 +561,5 @@ BUTTON STYLING
 .currencyButton:hover {
   background-color: rgba(51, 51, 51, 0.25);
 }
+
+
