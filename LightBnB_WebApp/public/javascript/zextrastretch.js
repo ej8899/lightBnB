@@ -12,45 +12,7 @@ $(document).ready(function() {
 
   // setup for SEARCH modal button
   $('#filtertoggleicon').click(function() {
-    maxPrice = 1000;  // base rate for CAD -- note we'd need to adjust this for different currencies, and adjust back to base for search
-    const $searchModalForm = $(`
-    <form action="/properties" method="get" id="filterform" class="search-property-form">
-    <div style="width:100%">
-      <div>
-      <div>City:</div>
-      <input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
-      </div><br>
-
-      Minimum Price: <output id="minprice">0</output><br clear=all>
-      <input type="range" value="0" min=0 max=${maxPrice} step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
-      <BR>
-      Maximum Price: <output id="maxprice">1000</output><br clear=all>
-      <input type="range" value="1000" min=0 max=${maxPrice} step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
-      <BR><BR>
-      
-      Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
-      <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:90%">
-      <br clear=all>
-      
-
-      <div class="search-property-form__field-wrapper">
-          <button class="button" ">Search</button>&nbsp;&nbsp;
-      </div>
-    </div>
-    </form>
-    `);
-    // $searchModalForm
-    toggleModal('Filter Results',$searchModalForm);
-    //set click handler on submit
-    $("#filterform").on('submit', function(event) {
-      toggleModal();
-      event.preventDefault();
-      const data = $(this).serialize();
-      getAllListings(data).then(function( json ) {      
-        propertyListings.addProperties(json.properties);
-        views_manager.show('listings');
-      });
-    });
+    getProvinceCounts(); // this starts the filter form by getting province counts, then falls into the modal via promises
   });
 
 
@@ -294,29 +256,6 @@ const initMap = function() {
   }
   */
   map = new google.maps.Map(document.getElementById("map"), mapProp);
-
-  //
-  //  RIGHT CLICK handler for ENTIRE map
-  //
-  /*
-  google.maps.event.addListener(map, 'rightclick', function(event) {      //what happens when the map is right clicked
-    clearOverlays();            //removes current markers form the map
-  });
-  */
-
-  /*
-  //
-  //  MOUSE OVER (& OUT) handler
-  //
-  marker.addListener('mouseover', function() {
-    infoWindow.open(map, this);
-  });
-
-  // assuming you also want to hide the infowindow when user mouses-out
-  marker.addListener('mouseout', function() {
-    infoWindow.close();
-  });
-*/
 };
 
 window.initMap = initMap;
@@ -342,12 +281,8 @@ const placeMarker = function(location,city,prov) {
   //  check for existing marker here - if so, just return so we're not doing useless work
   for (let x = 0; x < markersArray.length; x++) {
     let tempLoc = JSON.parse(JSON.stringify(markersArray[x].getPosition()));
-    //console.log(JSON.stringify(markersArray[x].getPosition()));
-    //console.log(JSON.parse(markersArray[x].getPosition()));
-    //console.log(markersArray[x].getPosition());
-   //console.log(typeof(markersArray[x].getPosition()));
-   let tempx = markersArray[x].getPosition();
-   console.log(tempx)
+    // NOTE getPosition() retrns promise - need to process PROPERLY!
+
     if (location.lat === tempLoc.lat) {
       if (location.lng === tempLoc.lng) {
         return;
@@ -377,7 +312,7 @@ const placeMarker = function(location,city,prov) {
     .then(function(json) {
       tempCount = (json.properties[0].count);
       console.log('count for ' + city + ':' + tempCount);
-      throw('error')  //(a test for .finally)
+      //throw('error')  // (a test for .finally)
     })
     .catch((error) => {
       console.log('error occured: ' + error.message);
@@ -506,7 +441,8 @@ const filterSearch = function() {
 //
 //  changeCurrency()
 //  pass (data) if in modal and sending a new currency to use, otherwise if no (data), we try to read existing data settings
-//  in reality, we'd use an API to fetch accurate exchange rates
+//  in reality, we'd use an API to fetch accurate exchange rates - NOTE api call should be secure via the server side to hide any KEY
+//  possible API to use: https://app.currencyapi.com/dashboard
 //
 const changeCurrency = function(data) {
   if (data) {
@@ -543,4 +479,97 @@ const showPrivacyPolicy = () => {
   ....etc, etc, etc.
   `;
   toggleModal('Privacy Policy',privacyPolicy);
+};
+
+
+const getProvinceCounts = (action) => {
+  const provinceArray = ['Alberta',
+    'British Columbia',
+    'Manitoba',
+    'Quebec',
+    'Ontario',
+    'Newfoundland And Labrador',
+    'New Brunswick',
+    'Northwest Territories',
+    'Nova Scotia',
+    'Nunavut',
+    'Prince Edward Island',
+    'Saskatchewan',
+    'Yukon'];
+    // query database and get a COUNT of listings per province, split apart and save into object for reference
+
+    
+    
+    getCountbyProv()
+    .then(function(json) {
+      let returnString = `<OPTION value="" selected>Any Province</OPTION>`;
+      for (const item of json.properties) {
+        returnString += `<OPTION value="${item.province}">${item.province} (${item.count} listings)</OPTION>`;
+      }
+      filterModal(returnString);
+    })
+    .catch((error) => {
+      let returnString = `<OPTION value="" selected>Any</OPTION>`;
+      for (const prov of provinceArray) {
+        returnString += `<OPTION value="${prov}">${prov}</OPTION>`;
+      }
+      filterModal(returnString);
+    });
+};
+
+
+const filterModal = (provinceCounts) => {
+  let maxPrice = 1000;  // base rate for CAD -- note we'd need to adjust this for different currencies, and adjust back to base for search
+  let selectList = provinceCounts;
+  const $searchModalForm = $(`
+  <form action="/properties" method="get" id="filterform" class="search-property-form">
+  <div style="width:100%">
+    
+    <div>Province:</div>
+    <div><select name="province" id="search=property-form__province" value="" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
+    ${selectList}</select>
+    </div><br>
+
+    <div>City:</div>
+    <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
+    </div><br>
+
+  
+
+    Minimum Price: <output id="minprice">0</output><br clear=all>
+    <input type="range" value="0" min=0 max=${maxPrice} step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
+    <BR>
+    Maximum Price: <output id="maxprice">1000</output><br clear=all>
+    <input type="range" value="1000" min=0 max=${maxPrice} step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
+    <BR><BR>
+    
+    Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
+    <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:90%">
+    <br clear=all>
+    
+    Priced:
+    <span class="switchcontainer" style="justify-content:flex-start">low to high<input type="checkbox" class="toggle" unchecked id="search-property-form__priceswitch" style="width:42px !important">high to low</div>
+
+    <div class="search-property-form__field-wrapper">
+        <button class="button" style="margin-top:20px;">Search</button>&nbsp;&nbsp;
+    </div>
+  </div>
+  </form>
+  `);
+  // $searchModalForm
+  toggleModal('Filter Results',$searchModalForm);
+  //set click handler on submit
+  $("#filterform").on('submit', function(event) {
+    toggleModal();
+    event.preventDefault();
+    let checkedValue = $('#search-property-form__priceswitch:checked').is(":checked");
+
+    let data = $(this).serialize();
+    checkedValue ? data += "&pricesort=DESC" : data += "&pricesort=ASC";
+    
+    getAllListings(data).then(function( json ) {
+      propertyListings.addProperties(json.properties);
+      views_manager.show('listings');
+    });
+  });
 };

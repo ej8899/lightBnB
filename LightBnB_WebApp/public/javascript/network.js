@@ -44,6 +44,16 @@ function getCountbyCity(params) {
     url,
   });
 }
+function getCountbyProv(params) {
+  let url = "/api/getcountbyprov";
+  if (params) {
+    url += "?province=" + params;
+  }
+  return $.ajax({
+    url,
+  });
+}
+
 
 function getAllListings(params) {
   let url = "/api/properties";

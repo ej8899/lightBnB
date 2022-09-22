@@ -41,6 +41,15 @@ module.exports = function(router, database) {
         res.send(e);
       });
   });
+    // extrastretch
+    router.get('/getcountbyprov', (req, res) => {
+      database.getCountbyProv(req.query, 300)
+        .then(properties => res.send({properties}))
+        .catch(e => {
+          console.error(e);
+          res.send(e);
+        });
+    });
 
   router.post('/properties', (req, res) => {
     const userId = req.session.userId;

@@ -92,6 +92,29 @@ const getAllCities = function() {
 };
 exports.getAllCities = getAllCities;
 
+//
+// extrastretch - getCountbyProv
+//
+const getCountbyProv = function(data) {
+  let sqlQueryString = `
+  SELECT distinct count(*), province
+  from properties
+  GROUP BY province
+  ORDER by province ASC
+  `;
+  let sqlValues = [];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log('count by province: ' + data.province + ' | ' + result.rows[0]);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.getCountbyProv = getCountbyProv;
 
 
 //
@@ -209,6 +232,11 @@ const getAllProperties = function(options, limit = 10) {
     sqlValues.push(`%${options.city}%`);
     sqlQueryString +=  `WHERE city iLIKE $${sqlValues.length} `;
   }
+  if (options.province) {                     // process search PROVINCE
+    sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
+    sqlValues.push(`${options.province}`);
+    sqlQueryString +=  `province iLIKE $${sqlValues.length} `;
+  }
   if (options.owner_id) {                 // process search OWNER (via ID)
     sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
     sqlValues.push(options.owner_id);
@@ -230,10 +258,13 @@ const getAllProperties = function(options, limit = 10) {
     sqlQueryString += `
     HAVING avg(property_reviews.rating) >= $${sqlValues.length} `;
   }
-
+  if (options.pricesort === "DESC") {
+    sqlQueryString += `ORDER BY properties.cost_per_night DESC `;
+  } else {
+    sqlQueryString += `ORDER BY properties.cost_per_night ASC `;
+  }
   sqlValues.push(limit); // add SQL "limit" to values
   sqlQueryString += `
-    order by properties.cost_per_night asc 
     LIMIT $${sqlValues.length}
     ;
   `;
