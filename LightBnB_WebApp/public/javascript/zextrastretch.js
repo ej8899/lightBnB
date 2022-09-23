@@ -302,7 +302,7 @@ const placeMarker = function(location,city,prov) {
   markersArray.push(marker);        //adds new marker to the markers array
   mapBounds.extend(marker.position);
   map.setOptions({maxZoom: 15});
-  map.fitBounds(mapBounds);
+  //map.fitBounds(mapBounds);
   google.maps.event.addListenerOnce(map, "idle", function () {
     if (map.getZoom() > 16) map.setZoom(16);
   });

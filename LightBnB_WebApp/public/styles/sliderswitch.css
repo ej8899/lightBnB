@@ -48,7 +48,7 @@ input[type=checkbox]:focus {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: white;
+  background: orange;
   box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
   transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
 }
@@ -58,5 +58,6 @@ input[type=checkbox]:focus {
 }
 
 .toggle:checked:after {
+  background:orangered;
   transform: translatex(20px);
 }
