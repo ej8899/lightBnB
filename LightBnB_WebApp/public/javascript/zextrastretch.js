@@ -519,15 +519,15 @@ const filterModal = (provinceCounts) => {
   let selectList = provinceCounts;
   const $searchModalForm = $(`
   <form action="/properties" method="get" id="filterform" class="search-property-form">
-  <div style="width:100%">
+  <div style="width:100%;border-box">
     
     <div>Province:</div>
-    <div><select name="province" id="search=property-form__province" value="" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
+    <div><select name="province" id="search=property-form__province" value="" style="width:100%;border: 1px solid;border-radius: 5px;margin-top:5px;margin-left:0px;">
     ${selectList}</select>
     </div><br>
 
     <div>City:</div>
-    <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
+    <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:100% !important;border: 1px solid;border-radius: 5px;margin-top:5px;margin-left:0px;">
     </div><br>
 
     <div style="margin-bottom:5px">Price Range:</div>
@@ -553,8 +553,8 @@ const filterModal = (provinceCounts) => {
     <BR><BR>
 -->
     <div style="margin-bottom:30px;">Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
-    <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:80%; margin-top:10px;margin-bottom:20px !important;"></div>
-  
+    <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:80%; margin-top:10px;margin-bottom:20px !important;">
+    </div>
     
     <div>Priced:</div>
     <span class="switchcontainer" style="justify-content:flex-start">low to high<input type="checkbox" class="toggle" unchecked id="search-property-form__priceswitch" style="width:42px !important">high to low</div>

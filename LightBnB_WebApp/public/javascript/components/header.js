@@ -13,7 +13,7 @@ $(() => {
       <nav id="page-header__user-links" class="page-header__user-links">
         <ul>
           <li class="home hoverbutton"><i class="fa-solid fa-house"></i></li>
-          <li class="search_button hoverbutton">Search</li>
+          <!--<li class="search_button hoverbutton">Search</li>-->
           <li class="login_button hoverbutton">Log In</li>
           <li class="sign-up_button hoverbutton">Sign Up</li>
           <li style="padding-left:20px"><a href="https://github.com/ej8899/lightBnB" target="new"><i class="fa-brands fa-github fa-lg"></i></a></li>
@@ -27,7 +27,7 @@ $(() => {
       <nav id="page-header__user-links" class="page-header__user-links">
         <ul>
           <li class="home hoverbutton"><i class="fa-solid fa-house"></i></li>
-          <li class="search_button hoverbutton">Search</li>
+          <!--<li class="search_button hoverbutton">Search</li>-->
           <!--<li class="hoverbutton">${user.name}</li>-->
           <li class="create_listing_button hoverbutton">Create Listing</li>
           <li class="my_listing_button hoverbutton">My Listings</li>
