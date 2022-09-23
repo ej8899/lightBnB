@@ -4,7 +4,7 @@
 //
 
 // global vars for GOOGLE MAP API
-let map,mapMarkers,markersArray,mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
+let map,mapBounds,mapMarkers,markersArray,mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
 let currencyMultiplier = 1;
 
 // Actions on Document Ready
@@ -14,7 +14,6 @@ $(document).ready(function() {
   $('#filtertoggleicon').click(function() {
     getProvinceCounts(); // this starts the filter form by getting province counts, then falls into the modal via promises
   });
-
 
   // setup "back to top" scroll button & deal with the scrolling
   $('.back-top').hide();
@@ -121,7 +120,6 @@ const toggleDarkMode = function(option) {
     localStorage.removeItem('isDarkMode');
   }
 };
-
 toggleDarkMode('check');
 
 
@@ -256,6 +254,7 @@ const initMap = function() {
   }
   */
   map = new google.maps.Map(document.getElementById("map"), mapProp);
+  mapBounds = new google.maps.LatLngBounds();
 };
 
 window.initMap = initMap;
@@ -301,6 +300,12 @@ const placeMarker = function(location,city,prov) {
     myprov: prov,
   });
   markersArray.push(marker);        //adds new marker to the markers array
+  mapBounds.extend(marker.position);
+  map.setOptions({maxZoom: 15});
+  map.fitBounds(mapBounds);
+  google.maps.event.addListenerOnce(map, "idle", function () {
+    if (map.getZoom() > 16) map.setZoom(16);
+  });
 
   //
   // add info window for each marker:
@@ -312,7 +317,6 @@ const placeMarker = function(location,city,prov) {
     .then(function(json) {
       tempCount = (json.properties[0].count);
       console.log('count for ' + city + ':' + tempCount);
-      //throw('error')  // (a test for .finally)
     })
     .catch((error) => {
       console.log('error occured: ' + error.message);
@@ -365,6 +369,10 @@ const clearMapMarkers = function() {
 };
 
 
+//
+// googleplaceSearch() -- FUTURE USE to grab details on each city as presented to user
+//  Expensive API calls - this part of project is on hold
+//
 const googlePlaceSearch = (city,prov) => {
   var config = {
     method: 'get',
@@ -417,26 +425,6 @@ closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 
 
-//
-//
-//
-const filterSearch = function() {
-  const data = $('#filterform').serialize();
-  toggleModal();
-  alert(data);
-  propertyListings.clearListings();
-  getAllListings(data)
-    .then(function(json) {
-      alert(json.properties)
-      propertyListings.addProperties(json.properties);
-      views_manager.show('listings');
-    })
-    .catch((err) => {
-      alert(err);
-    });
-};
-
-
 
 //
 //  changeCurrency()
@@ -473,6 +461,10 @@ const changeCurrency = function(data) {
   // save to localStorage (FUTURE USE)
 };
 
+
+//
+// show Privacy Policy modal window
+//
 const showPrivacyPolicy = () => {
   let privacyPolicy = `
   This privacy policy is to inform you on how the information collected on this website is used. Be sure to read this privacy policy before using our website or submitting any personal information and be aware that by using our website, you are accepting the practices described in this policy. We reserve the right to make changes to this website's policy at any time without prior notice. Be also aware that privacy practices set forth in this here are for this website only and do not apply for any other linking websites.<BR><BR>
@@ -482,6 +474,10 @@ const showPrivacyPolicy = () => {
 };
 
 
+//
+// filter search form process to collect provincal data - total # of listings in each province,
+// once ready, open the modal filter form with populated information
+//
 const getProvinceCounts = (action) => {
   const provinceArray = ['Alberta',
     'British Columbia',
@@ -498,8 +494,6 @@ const getProvinceCounts = (action) => {
     'Yukon'];
     // query database and get a COUNT of listings per province, split apart and save into object for reference
 
-    
-    
     getCountbyProv()
     .then(function(json) {
       let returnString = `<OPTION value="" selected>Any Province</OPTION>`;
@@ -517,7 +511,9 @@ const getProvinceCounts = (action) => {
     });
 };
 
-
+//
+// filterModal() - assemble final data for our modal search form and present to user
+//
 const filterModal = (provinceCounts) => {
   let maxPrice = 1000;  // base rate for CAD -- note we'd need to adjust this for different currencies, and adjust back to base for search
   let selectList = provinceCounts;
@@ -534,20 +530,33 @@ const filterModal = (provinceCounts) => {
     <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:90%;border: 1px solid;border-radius: 5px;margin-top:5px;">
     </div><br>
 
-  
+    <div style="margin-bottom:5px">Price Range:</div>
+    <div class="range_container">
+    <div class="sliders_control">
+        <input id="fromSlider" type="range" value="100" min="0" max="1000" name="minimum_price_per_night" />
+        <input id="toSlider" type="range" value="400" min="0" max="1000" name="maximum_price_per_night" />
+    </div>
+    <div class="form_control">
+        <div class="form_control_container">min $ <output id="fromInput">0</output>
+        </div>
+        <div class="form_control_container">max $ <output id="toInput">0</output>
+        </div>
+    </div>
+    </div>
 
+<!--
     Minimum Price: <output id="minprice">0</output><br clear=all>
     <input type="range" value="0" min=0 max=${maxPrice} step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
     <BR>
     Maximum Price: <output id="maxprice">1000</output><br clear=all>
     <input type="range" value="1000" min=0 max=${maxPrice} step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
     <BR><BR>
+-->
+    <div style="margin-bottom:30px;">Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
+    <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:80%; margin-top:10px;margin-bottom:20px !important;"></div>
+  
     
-    Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
-    <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:90%">
-    <br clear=all>
-    
-    Priced:
+    <div>Priced:</div>
     <span class="switchcontainer" style="justify-content:flex-start">low to high<input type="checkbox" class="toggle" unchecked id="search-property-form__priceswitch" style="width:42px !important">high to low</div>
 
     <div class="search-property-form__field-wrapper">
@@ -556,9 +565,11 @@ const filterModal = (provinceCounts) => {
   </div>
   </form>
   `);
-  // $searchModalForm
+  // open the search modal window
   toggleModal('Filter Results',$searchModalForm);
-  //set click handler on submit
+  addSliderListeners();
+
+  // set click handler on submit
   $("#filterform").on('submit', function(event) {
     toggleModal();
     event.preventDefault();

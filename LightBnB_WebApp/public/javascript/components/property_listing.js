@@ -1138,9 +1138,20 @@ const getGeo = (city,prov) => {
   const apiKey = mapsKey;
   const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?key=${apiKey}&address=${city},${prov}&sensor=false`;
   // check internal database FIRST and if not found, only then fetch via API (each request is $0.005)
+  // Note: internal DB doesn't have PROVINCE info saved, so we need to check LNG to ensure we have correct entries
+  // for NS vs BC "Richmond"
   if(geoLocationDb[city] !== undefined) {
     console.log("GEO from internal DB");
-    placeMarker({lat:geoLocationDb[city].lat,lng:geoLocationDb[city].lng},city,prov);
+    
+    if(city === "Richmond") {
+      if (prov === "Nova Scotia") {
+        placeMarker({lat:45.75697,lng:-63.461582},city,prov);    
+      } else {
+        placeMarker({lat:geoLocationDb[city].lat,lng:geoLocationDb[city].lng},city,prov);
+      }
+    } else {
+      placeMarker({lat:geoLocationDb[city].lat,lng:geoLocationDb[city].lng},city,prov);
+    }
   } else {
     alert("GEO not in internal db - google fetch");
     fetch(apiURL).then(function (response) {

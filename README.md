@@ -75,6 +75,10 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 ## Detailed Operation...  
 - Clone the github repository to your computer, and follow the instructions above in Quick Start to get to where you can run Tweeter on your computer. 
 
+TESTING USER (this way "my listings" works)
+email: sebastianguerra@ymail.com
+password: password
+
 - From the main window, you can experiment with a few built in sample tweets, or start creating your own by clicking the double down chevrons in the top right to open the tweet message form.  We've incorporated extra features such as "like", "retweet" and "report" this tweet, along with tweet generators from the ICanHazDadJoke API and just a few random ones in our built in database. 
 ![](image-mainusing-desktop.png)
 
@@ -99,6 +103,7 @@ Bonus: favorite state is preserved in localStorage.
 --- 
 ## Known Bugs...
 - Some price/night shows only 1 decimal (fixed 2022-09-19)
+- Map error - Richmond exists in both BC and NS. Searches in NS will show map pins in BC unfortunately. This is a mapping issue and not related to our SQL search or database information.
 - Filter Results 'range sliders' don't prevent min price to stay under max price and max price to be greater than min price
 - Scroll bar is forced 'always' on' to prevent page shift  
 [( back to top 🔺)](#lightbnb)

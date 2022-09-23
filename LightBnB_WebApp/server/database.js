@@ -235,7 +235,8 @@ const getAllProperties = function(options, limit = 10) {
   if (options.province) {                     // process search PROVINCE
     sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
     sqlValues.push(`${options.province}`);
-    sqlQueryString +=  `province iLIKE $${sqlValues.length} `;
+    //sqlQueryString +=  `province iLIKE $${sqlValues.length} `;
+    sqlQueryString +=  `province = $${sqlValues.length}::text `;
   }
   if (options.owner_id) {                 // process search OWNER (via ID)
     sqlQueryString += (sqlValues.length ? `AND ` : 'WHERE ');
