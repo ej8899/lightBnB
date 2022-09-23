@@ -355,6 +355,10 @@ input,textarea,select {
   padding:13px;
 }
 
+input[type="text"] {
+  width:100%;
+}
+
 #main-content {
   display: flex;
   flex-direction: column;

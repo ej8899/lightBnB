@@ -527,7 +527,7 @@ const filterModal = (provinceCounts) => {
     </div><br>
 
     <div>City:</div>
-    <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="width:100% !important;border: 1px solid;border-radius: 5px;margin-top:5px;margin-left:0px;">
+    <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="box-sizing:border-box;border: 1px solid;border-radius: 5px;margin-top:5px;margin-left:0px;">
     </div><br>
 
     <div style="margin-bottom:5px">Price Range:</div>
