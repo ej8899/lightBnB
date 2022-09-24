@@ -35,6 +35,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
   - added tooltips on various items
   - add "no listings found" message where appropriate
   - add currency selection modal (CAD, USD, MXN supported)
+  - add average cost per night db query (result) in search modal
   - add confirmation modal to 'create listing' option  
  
 #### converted ratings to stars (out of 5)

@@ -53,6 +53,12 @@ function getCountbyProv(params) {
     url,
   });
 }
+function getAverageCostPerNight() {
+  let url = "/api/getaveragecostpernight";
+  return $.ajax({
+    url,
+  });
+}
 
 
 function getAllListings(params) {

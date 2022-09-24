@@ -116,6 +116,27 @@ const getCountbyProv = function(data) {
 };
 exports.getCountbyProv = getCountbyProv;
 
+//
+// extrastretch - get average cost per night throughout all listings
+//
+const getAverageCostPerNight = function(data) {
+  let sqlQueryString = `
+  SELECT AVG(cost_per_night)
+  FROM properties
+  `;
+  let sqlValues = [];
+
+  return pool
+    .query(sqlQueryString, sqlValues)
+    .then((result) => {
+      console.log('count by province: ' + data.province + ' | ' + result.rows[0]);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.getAverageCostPerNight = getAverageCostPerNight;
 
 //
 // extrastretch - getAllCities for our map

@@ -23,7 +23,17 @@ module.exports = function(router, database) {
     });
   });
 
-  // extrastretch
+
+  // extrastretch - get average cost_per_night of all entries in db
+  router.get('/getaveragecostpernight', (req, res) => {
+    database.getAverageCostPerNight(req.query, 300)
+      .then(properties => res.send({properties}))
+      .catch(e => {
+        console.error(e);
+        res.send(e);
+      });
+  });
+  // extrastretch - get a list of all cities in our database
   router.get('/allcities', (req, res) => {
     database.getAllCities(req.query, 300)
       .then(properties => res.send({properties}))
@@ -32,7 +42,7 @@ module.exports = function(router, database) {
         res.send(e);
       });
   });
-  // extrastretch
+  // extrastretch - get a count of all listings per city
   router.get('/getcountbycity', (req, res) => {
     database.getCountbyCity(req.query, 300)
       .then(properties => res.send({properties}))
@@ -41,7 +51,7 @@ module.exports = function(router, database) {
         res.send(e);
       });
   });
-    // extrastretch
+    // extrastretch - get a count of listings by province
     router.get('/getcountbyprov', (req, res) => {
       database.getCountbyProv(req.query, 300)
         .then(properties => res.send({properties}))

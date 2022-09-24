@@ -5,7 +5,7 @@
 
 // global vars for GOOGLE MAP API
 let map,mapBounds,mapMarkers,markersArray,mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
-let currencyMultiplier = 1;
+let currencyMultiplier = 1, averageCostPerNight = 0;
 
 // Actions on Document Ready
 $(document).ready(function() {
@@ -34,6 +34,13 @@ $(document).ready(function() {
       }
     }
   });
+
+  getAverageCostPerNight()
+    .then(function(json) {
+      averageCostPerNight = json.properties.avg;
+    });
+
+
 }); // END DOCUMENT READY
 
 
@@ -517,6 +524,12 @@ const getProvinceCounts = (action) => {
 const filterModal = (provinceCounts) => {
   let maxPrice = 1000;  // base rate for CAD -- note we'd need to adjust this for different currencies, and adjust back to base for search
   let selectList = provinceCounts;
+  let avgPerNightString = "";
+  if (averageCostPerNight > 0) {
+    avgPerNightString = "<BR>(Average Cost Per Night: $" + ((averageCostPerNight / 100.0) * currencyMultiplier).toFixed(2) + ")";
+  } else {
+    avgPerNightString = "";
+  }
   const $searchModalForm = $(`
   <form action="/properties" method="get" id="filterform" class="search-property-form">
   <div style="width:100%;border-box">
@@ -530,7 +543,7 @@ const filterModal = (provinceCounts) => {
     <div><input type="text" name="city" placeholder="City" id="search-property-form__city" style="box-sizing:border-box;border: 1px solid;border-radius: 5px;margin-top:5px;margin-left:0px;">
     </div><br>
 
-    <div style="margin-bottom:5px">Price Range:</div>
+    <div style="margin-bottom:5px">Price Range:${avgPerNightString}</div>
     <div class="range_container">
     <div class="sliders_control">
         <input id="fromSlider" type="range" value="1" min="0" max="1000" name="minimum_price_per_night" />
@@ -544,14 +557,6 @@ const filterModal = (provinceCounts) => {
     </div>
     </div>
 
-<!--
-    Minimum Price: <output id="minprice">0</output><br clear=all>
-    <input type="range" value="0" min=0 max=${maxPrice} step=20 name="minimum_price_per_night" id="search-property-form__minimum-price-per-night" oninput="document.getElementById('minprice').value = this.value" style="width:90%">
-    <BR>
-    Maximum Price: <output id="maxprice">1000</output><br clear=all>
-    <input type="range" value="1000" min=0 max=${maxPrice} step=20 name="maximum_price_per_night" id="search-property-form__maximum-price-per-night"  oninput="document.getElementById('maxprice').value = this.value" style="width:90%"
-    <BR><BR>
--->
     <div style="margin-bottom:30px;">Minimum Rating: <output id="ratingvalue">1</output><br clear=all>
     <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:80%; margin-top:10px;margin-bottom:20px !important;">
     </div>
