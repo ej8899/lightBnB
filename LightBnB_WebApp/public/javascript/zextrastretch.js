@@ -533,8 +533,8 @@ const filterModal = (provinceCounts) => {
     <div style="margin-bottom:5px">Price Range:</div>
     <div class="range_container">
     <div class="sliders_control">
-        <input id="fromSlider" type="range" value="100" min="0" max="1000" name="minimum_price_per_night" />
-        <input id="toSlider" type="range" value="400" min="0" max="1000" name="maximum_price_per_night" />
+        <input id="fromSlider" type="range" value="1" min="0" max="1000" name="minimum_price_per_night" />
+        <input id="toSlider" type="range" value="1000" min="0" max="1000" name="maximum_price_per_night" />
     </div>
     <div class="form_control">
         <div class="form_control_container">min $ <output id="fromInput">0</output>

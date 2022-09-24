@@ -60,9 +60,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 - allow sorting of any displayed results
 - dark mode styling on the map
 - new listings go live immediately
-- restyle "submit" form button
-- restyle "cancel" link on forms
-- grab city 'about' and photo from google API
+- grab city 'about' and photo from google API or other web scraping
   (just have to monitor costing for this)
 - style entire project for responsive design: mobile to desktop  
 [( back to top 🔺)](#lightbnb)
