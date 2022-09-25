@@ -59,6 +59,12 @@ function getAverageCostPerNight() {
     url,
   });
 }
+function getCostPerRange() {
+  let url = "/api/getcostperrange";
+  return $.ajax({
+    url,
+  });
+}
 
 
 function getAllListings(params) {

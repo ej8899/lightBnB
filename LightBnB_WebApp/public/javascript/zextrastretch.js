@@ -5,7 +5,7 @@
 
 // global vars for GOOGLE MAP API
 let map,mapBounds,mapMarkers,markersArray,mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
-let currencyMultiplier = 1, averageCostPerNight = 0;
+let currencyMultiplier = 1, averageCostPerNight = 0, graphCostRanges = {};
 
 // Actions on Document Ready
 $(document).ready(function() {
@@ -26,7 +26,7 @@ $(document).ready(function() {
       $('.back-top').removeClass("fadeout");
       $('.back-top').show();
     } else {
-      if(!$('#back-top').hasClass("fadeout")) {
+      if (!$('#back-top').hasClass("fadeout")) {
         $('.back-top').addClass("fadeout");
         setTimeout(function() {
           $('.back-top').hide();
@@ -39,7 +39,11 @@ $(document).ready(function() {
     .then(function(json) {
       averageCostPerNight = json.properties.avg;
     });
-
+  getCostPerRange()
+    .then(function(json) {
+      graphCostRanges = JSON.parse(JSON.stringify(json.properties));
+      
+    });
 
 }); // END DOCUMENT READY
 
@@ -544,15 +548,36 @@ const filterModal = (provinceCounts) => {
     </div><br>
 
     <div style="margin-bottom:5px">Price Range:${avgPerNightString}</div>
-    <div class="range_container">
+    <div id="avgcostpernight" style="height: 100px;width:112%;margin-left:0px;margin-right:0px;margin-bottom:0px;left:-22px;"></div>
+    <script>
+    new Morris.Bar({
+      element: 'avgcostpernight',
+      // Chart data records -- each entry in this array corresponds to a point on
+      // the chart.
+      barColors: ['#cccccc'],
+      axes: false,
+      grid: false,
+      hideHover: true,
+      gridTextSize: 10,
+      data: graphCostRanges,
+      // The name of the data record attribute that contains x-values.
+      xkey: 'Range',
+      // A list of names of data record attributes that contain y-values.
+      ykeys: ['Count'],
+      // Labels for the ykeys -- will be displayed when you hover over the
+      // chart.
+      labels: ['count in this range']
+    });
+    </script>
+    <div class="range_container" style="margin-top:-28px;width=100%;">
     <div class="sliders_control">
         <input id="fromSlider" type="range" value="1" min="0" max="1000" name="minimum_price_per_night" />
         <input id="toSlider" type="range" value="1000" min="0" max="1000" name="maximum_price_per_night" />
     </div>
     <div class="form_control">
-        <div class="form_control_container">min $ <output id="fromInput">0</output>
+        <div class="form_control_container">selected: $ <output id="fromInput">0</output> to $ <output id="toInput">0</output>
         </div>
-        <div class="form_control_container">max $ <output id="toInput">0</output>
+        <div class="form_control_container"><!-- max $ <output id="toInput">0</output> -->
         </div>
     </div>
     </div>
@@ -561,7 +586,7 @@ const filterModal = (provinceCounts) => {
     <input type="range" value="1" min="1" max="5" step="1" name="minimum_rating" placeholder="Minimum Rating" id="search-property-form__minimum-rating" oninput="document.getElementById('ratingvalue').value = this.value" style="width:80%; margin-top:10px;margin-bottom:20px !important;">
     </div>
     
-    <div>Priced:</div>
+    <div>Sort by Price:</div>
     <span class="switchcontainer" style="justify-content:flex-start">low to high<input type="checkbox" class="toggle" unchecked id="search-property-form__priceswitch" style="width:42px !important">high to low</div>
 
     <div class="search-property-form__field-wrapper">

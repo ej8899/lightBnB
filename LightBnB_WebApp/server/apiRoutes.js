@@ -23,7 +23,15 @@ module.exports = function(router, database) {
     });
   });
 
-
+  // extrastretch - get average cost_per_night for each price range ($50 segments)
+  router.get('/getcostperrange', (req, res) => {
+    database.getCostPerRange(req.query, 300)
+      .then(properties => res.send({properties}))
+      .catch(e => {
+        console.error(e);
+        res.send(e);
+      });
+  });
   // extrastretch - get average cost_per_night of all entries in db
   router.get('/getaveragecostpernight', (req, res) => {
     database.getAverageCostPerNight(req.query, 300)
