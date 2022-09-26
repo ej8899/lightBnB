@@ -4,7 +4,7 @@
 //
 
 // global vars for GOOGLE MAP API
-let map,mapBounds,mapMarkers,markersArray,mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
+let map,mapBounds,mapMarkers,markersArray,mapsKey='AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
 let currencyMultiplier = 1, averageCostPerNight = 0, graphCostRanges = {};
 
 // Actions on Document Ready
@@ -43,7 +43,6 @@ $(document).ready(function() {
   getCostPerRange()
     .then(function(json) {
       graphCostRanges = JSON.parse(JSON.stringify(json.properties));
-      
     });
 
 }); // END DOCUMENT READY
@@ -327,7 +326,7 @@ const placeMarker = function(location,city,prov) {
   let tempCount;
   getCountbyCity(city)
     .then(function(json) {
-      tempCount = (json.properties[0].count);
+      tempCount = JSON.parse(JSON.stringify(json.properties.count));
       console.log('count for ' + city + ':' + tempCount);
     })
     .catch((error) => {
@@ -567,7 +566,7 @@ const filterModal = (provinceCounts) => {
       ykeys: ['Count'],
       // Labels for the ykeys -- will be displayed when you hover over the
       // chart.
-      labels: ['count in this range']
+      labels: ['properties in this range']
     });
     </script>
     <div class="range_container" style="margin-top:-28px;width=100%;">
