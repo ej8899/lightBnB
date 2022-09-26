@@ -178,6 +178,10 @@ html {
     margin: 5px 5px;
     width: 100%; }
 
+.page-header {
+  display:flex;
+  justify-content: center;
+}
 .page-header__user-links ul {
   font-family: sans-serif;
   font-weight: normal;
