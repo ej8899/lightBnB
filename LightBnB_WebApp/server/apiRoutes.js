@@ -5,8 +5,8 @@ module.exports = function(router, database) {
     .then(properties => res.send({properties}))
     .catch(e => {
       console.error(e);
-      res.send(e)
-    }); 
+      res.send(e);
+    });
   });
 
   router.get('/reservations', (req, res) => {
@@ -82,4 +82,4 @@ module.exports = function(router, database) {
   });
 
   return router;
-}
+};

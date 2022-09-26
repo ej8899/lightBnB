@@ -35,6 +35,7 @@ $(document).ready(function() {
     }
   });
 
+  // grab some data from the db server to have cached in memory
   getAverageCostPerNight()
     .then(function(json) {
       averageCostPerNight = json.properties.avg;

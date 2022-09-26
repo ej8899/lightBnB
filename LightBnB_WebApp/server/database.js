@@ -1,6 +1,8 @@
 const properties = require('./json/properties.json');
 const users = require('./json/users.json');
+const db = require("./db");
 
+/*
 // connect to PSQL database lightbnb
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -9,10 +11,9 @@ const pool = new Pool({
   host: 'localhost',
   database: 'lightbnb'
 });
-
+*/
 // test PSQL connection
 // pool.query(`SELECT title FROM properties LIMIT 10;`).then(response => {console.log(response)})
-
 
 
 /// Users
@@ -24,7 +25,6 @@ const pool = new Pool({
  */
 const getUserWithEmail = function(email) {
   // https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w13/activities/776?journey_step=51&workbook=17
-  
   let userEmail = email.toLowerCase().trim();
   let sqlQueryString = `
   SELECT * 
@@ -33,15 +33,7 @@ const getUserWithEmail = function(email) {
 `;
   let sqlValues = [userEmail];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log(result.rows);
-      return result.rows[0];
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getUserWithEmail = getUserWithEmail;
 
@@ -51,7 +43,6 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function(id) {
-  
   let sqlQueryString = `
   SELECT * 
   from users
@@ -59,24 +50,27 @@ const getUserWithId = function(id) {
   `;
   let sqlValues = [id];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log(result.rows);
-      return result.rows[0];
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getUserWithId = getUserWithId;
 
 //
 // extrastretch - get counts per cost per night ranges (for filter/search graph)
 //
+/* NOTE: this code would work and be scalable.... back or front end would have to translate index into 'human' readable form.
+SELECT
+   Floor(cost_per_night/5000) as index,
+   Floor(cost_per_night/5000)+5000 as upperBounds,
+   Count(*)
+FROM
+   properties
+GROUP BY
+   Floor(cost_per_night/5000)
+   ORDER by index;
+*/
 const getCostPerRange = function() {
   let sqlQueryString = `
-    select 
+    SELECT 
     case 
       when cost_per_night between 0 and 5000 then      '$   0 - 50'
       when cost_per_night between 5001 and 10000 then  '$  51 - 100'
@@ -103,20 +97,12 @@ const getCostPerRange = function() {
     end as "Range",
     count(*) as "Count"
   FROM properties
-  group by "Range"
-  order by "Range"
+  GROUP BY "Range"
+  ORDER BY "Range"
   `;
   let sqlValues = [];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log(result.rows);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.getCostPerRange = getCostPerRange;
 
@@ -129,15 +115,7 @@ const getAllCities = function() {
   `;
   let sqlValues = [];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log(result.rows);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.getAllCities = getAllCities;
 
@@ -147,21 +125,13 @@ exports.getAllCities = getAllCities;
 const getCountbyProv = function(data) {
   let sqlQueryString = `
   SELECT distinct count(*), province
-  from properties
+  FROM properties
   GROUP BY province
   ORDER by province ASC
   `;
   let sqlValues = [];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log('count by province: ' + data.province + ' | ' + result.rows[0]);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.getCountbyProv = getCountbyProv;
 
@@ -175,15 +145,7 @@ const getAverageCostPerNight = function(data) {
   `;
   let sqlValues = [];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log('count by province: ' + data.province + ' | ' + result.rows[0]);
-      return result.rows[0];
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getAverageCostPerNight = getAverageCostPerNight;
 
@@ -199,15 +161,7 @@ const getCountbyCity = function(city) {
   `;
   let sqlValues = [city.city];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log('count by city: ' + city.city + ' | ' + result.rows[0]);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getCountbyCity = getCountbyCity;
 
@@ -224,15 +178,7 @@ const addUser =  function(user) {
   `;    // note the "RETURNING *" gives us back the auto gen. ID/PK
   let sqlValues = [user.name, user.email, user.password];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log(result.rows);
-      return result.rows[0];
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.addUser = addUser;
 
@@ -250,30 +196,22 @@ const getAllReservations = function(guest_id, limit = 10) {
   //return getAllProperties(null, 2);
 
   let sqlQueryString = `
-  select 
+  SELECT 
 	r.*, 
 	p.*,
 	round(avg(pr.rating),1) as average_rating
 	
-from reservations as r
-join properties as p on p.id = r.property_id
-join property_reviews as pr on pr.property_id = r.property_id
-where r.guest_id = $1
-group by r.id, p.id
-order by r.start_date desc
-LIMIT $2;
+  FROM reservations as r
+  JOIN properties as p on p.id = r.property_id
+  JOIN property_reviews as pr on pr.property_id = r.property_id
+  WHERE r.guest_id = $1
+  GROUP BY r.id, p.id
+  ORDER BY r.start_date desc
+  LIMIT $2;
   `;    // note the "RETURNING *" gives us back the auto gen. ID/PK
   let sqlValues = [guest_id, limit];
 
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      console.log(result.rows);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.getAllReservations = getAllReservations;
 
@@ -340,15 +278,7 @@ const getAllProperties = function(options, limit = 10) {
     ;
   `;
   console.log(sqlQueryString + ' | ' + sqlValues);
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      // console.log(result.rows);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.getAllProperties = getAllProperties;
 // getAllProperties();
