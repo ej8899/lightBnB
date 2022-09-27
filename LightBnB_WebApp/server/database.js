@@ -24,6 +24,7 @@ const getUserWithEmail = function(email) {
 };
 exports.getUserWithEmail = getUserWithEmail;
 
+
 /**
  * Get a single user from the database given their id.
  * @param {string} id The id of the user.
@@ -40,6 +41,7 @@ const getUserWithId = function(id) {
   return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getUserWithId = getUserWithId;
+
 
 //
 // extrastretch - get counts per cost per night ranges (for filter/search graph)
@@ -93,6 +95,7 @@ const getCostPerRange = function() {
 };
 exports.getCostPerRange = getCostPerRange;
 
+
 //
 // extrastretch - getAllCities for our map
 //
@@ -105,6 +108,7 @@ const getAllCities = function() {
   return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.getAllCities = getAllCities;
+
 
 //
 // extrastretch - getCountbyProv
@@ -122,6 +126,7 @@ const getCountbyProv = function(data) {
 };
 exports.getCountbyProv = getCountbyProv;
 
+
 //
 // extrastretch - get average cost per night throughout all listings
 //
@@ -135,6 +140,7 @@ const getAverageCostPerNight = function(data) {
   return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getAverageCostPerNight = getAverageCostPerNight;
+
 
 //
 // extrastretch - getAllCities for our map
@@ -151,6 +157,7 @@ const getCountbyCity = function(city) {
   return db.query(sqlQueryString, sqlValues,(res) => res.rows[0]);
 };
 exports.getCountbyCity = getCountbyCity;
+
 
 /**
  * Add a new user to the database.
