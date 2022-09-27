@@ -67,7 +67,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Quick Start...  
-- loreum ipsum  
+- npm run local
 [( back to top 🔺)](#lightbnb)
 
 --- 
@@ -84,32 +84,20 @@ password: password
 - Clicking the smiley face icon gets you a "Dad Joke", while the shuffle arrows pull a random quote from our internal database.  The numbers represent the characters remaining in your tweet message.
 ![](image-main-compose.png)
 
-- A tweet must be less than 140 characters, and of course, greater than zero characters!
-![](image-main-error.png)
 
-- If "liking" tweets, you can quickly view your favorites, by clicking the heart icon under your avatar image.  Click it again to return to the view of all tweets.
-![](image-mainfavs.png)
-
-- We've determined that 10 tweets loaded at a time is plenty.  So if you've got more, scroll down and click the "more" link.  A badge icon shows you how many more older tweets remain to be viewed.
-![](image-main-pagination.png)
-
-- Tweeter is also built to support both 'desktop' and 'mobile' devices.  Down scaling your window will cause Tweeter to adjust for a more suitable display.   
-![](image-tweeter-phone.jpg)  
 - Of course, we can't forget about everyone's favorite 'must-have' feature - dark mode! Just click the switch to toggle.  
 Bonus: favorite state is preserved in localStorage.  
 ![](tweeter-darkmode.gif)  
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Known Bugs...
-- Some price/night shows only 1 decimal (fixed 2022-09-19)
 - Map error - Richmond exists in both BC and NS. Searches in NS will show map pins in BC unfortunately. This is a mapping issue and not related to our SQL search or database information.
-- Filter Results 'range sliders' don't prevent min price to stay under max price and max price to be greater than min price
 - Scroll bar is forced 'always' on' to prevent page shift  
 [( back to top 🔺)](#lightbnb)
 ---
 ## Attributions...
 - [conColors](https://github.com/ej8899/conColors) (misc. functions)
-- [conColors](https://github.com/ej8899/conColors) (misc. style sheets)
+- [conColors](https://github.com/ej8899/conColors) (misc. CSS for dark mode template)
 - FontAwesome
 - Google Fonts, Google Maps API
 - Ajax

@@ -1,8 +1,9 @@
+//
+// dual range slider code for form input
 // slider code from https://medium.com/@predragdavidovic10/native-dual-range-slider-html-css-javascript-91e778134816
 // CSS had to be modified extensively and still has transparency 'bug'
 
 // ALSO NOTE we have listeners in our modal form that need to be in place
-
 
 
 const controlFromSlider = function(fromSlider, toSlider, fromInput) {

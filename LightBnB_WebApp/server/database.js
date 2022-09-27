@@ -299,15 +299,6 @@ const addProperty = function(property) {
     property.number_of_bathrooms,
     property.number_of_bedrooms
   ];
-
-  return pool
-    .query(sqlQueryString, sqlValues)
-    .then((result) => {
-      // console.log(result.rows);
-      return result.rows;
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
+  return db.query(sqlQueryString, sqlValues,(res) => res.rows);
 };
 exports.addProperty = addProperty;

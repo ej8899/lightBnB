@@ -28,7 +28,7 @@ function signUp(data) {
   });
 }
 
-// extrastretch
+// extrastretch items
 function getAllTheCities() {
   let url = "/api/allcities";
   return $.ajax({
