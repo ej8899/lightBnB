@@ -17,8 +17,8 @@ $(() => {
           </div>
   
         <div class="sign-up-form__field-wrapper">
-            <button>Sign Up</button>&nbsp;&nbsp;
-            <a id="sign-up-form__cancel" href="#">Cancel</a>
+            <button class="button">Sign Up</button>&nbsp;&nbsp;
+            <a id="sign-up-form__cancel" class="button" href="#">Cancel</a>
         </div>
       </form>
   `);

@@ -19,7 +19,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 8. [Updates](#updates)
 --- 
 ## Features...  
-![](overview-ani.gif)
+![](./screenshots/overview-ani.gif)
 - AirBnB type basic clone to work with SQL queries on a Postgres database backend.
 - Quick view of "My Listings" and "My Reservations"
 (requires logged in user with listings or reservations existing in database)
@@ -29,7 +29,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 
 ---
 ## Extra Features...
-#### general extras
+#### General Extras:
   - show a "missing" (tent) image if URL is broken or otherwise not returning a valid image item (checks via async call)
   - cleanup nav bar
   - added tooltips on various items
@@ -37,28 +37,36 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
   - add currency selection modal (CAD, USD, MXN supported)
   - add average cost per night db query (result) in search modal
   - add confirmation modal to 'create listing' option  
+
+#### Database Extras:
+   - obtain province totals for search window
+   - obtain city totals for mapping
+   - obtain total listings per price range ($50 increments) for search window
+   - obtain average cost per night for search window
  
-#### converted ratings to stars (out of 5)
+#### Converted Ratings to Stars:
+   - use full, empty & half stars for out of 5 rating
    - hover on stars to see exact rating via tool tips  
 
-#### google maps integration:
+#### Google Maps Integration:
   - city level display only as database has ficticious street addresses
-    - unknown city info is pulled from google api, and optimized to save future fetch costs
+  - unknown city info is pulled from google api, and optimized in a local cache to save future fetch costs
   - customized place markers
   - left clickable markers perform database search on city
   - add style to google maps "info window"  
 
-#### style tweaks:
+#### Style Tweaks:
   - add scroll animation (fade in on scroll)
   - box shadow implementation
   - property listings are subdued to nearly grey scale until mouse-over
   - add project title with css gradient animation
+  - animated 'back to top' floater button
   - add light/dark mode toggle (persistent with local storage)  
   [( back to top 🔺)](#lightbnb)
 
 --- 
 ## Future Plans...
-- allow sorting of any displayed results
+- allow additional sorting of any displayed results
 - dark mode styling on the map
 - new listings go live immediately
 - grab city 'about' and photo from google API or other web scraping
@@ -78,21 +86,19 @@ TESTING USER (this way "my listings" works)
 email: sebastianguerra@ymail.com
 password: password
 
-- From the main window, you can experiment with a few built in sample tweets, or start creating your own by clicking the double down chevrons in the top right to open the tweet message form.  We've incorporated extra features such as "like", "retweet" and "report" this tweet, along with tweet generators from the ICanHazDadJoke API and just a few random ones in our built in database. 
-![](image-mainusing-desktop.png)
+- From the main window, you select any of the nav bar items, or move about the map and click a city to search there.  Alternatively, you can click or tap the seach button to the bottom right of the map and select search criteria.  Mouse over a property listeing to pop out the details window to view number of beds, baths and parking spaces.
+![](./screenshots/screenshot-main.png)
 
-- Clicking the smiley face icon gets you a "Dad Joke", while the shuffle arrows pull a random quote from our internal database.  The numbers represent the characters remaining in your tweet message.
-![](image-main-compose.png)
+- When in the search window, all shown items are optional searches.  You can drop the province list to search on province, or type a city name (or part of a city name).  Additionaly, you can use the range slider to select a price range to search on and a minimum listing rating.  Finally, a toggle lets you choose to display your search priced low to high, or alternatively, high to low. The bar graph on the price range selection shows the number of listings in each $50 price range, from $1 to $1000. 
+![](./screenshots/screenshot-search-main.png)
 
-
-- Of course, we can't forget about everyone's favorite 'must-have' feature - dark mode! Just click the switch to toggle.  
-Bonus: favorite state is preserved in localStorage.  
-![](tweeter-darkmode.gif)  
+- If you need to view listings in a different currency, we currently offer Canadian, US, EUR, BZD and MXN exchanges.  Note this feature is not fully developed through the application yet and incorporated for proof of concept only. 
+![](./screenshots/screenshot-currency.png)  
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Known Bugs...
 - Map error - Richmond exists in both BC and NS. Searches in NS will show map pins in BC unfortunately. This is a mapping issue and not related to our SQL search or database information.
-- Scroll bar is forced 'always' on' to prevent page shift  
+- Vertical scroll bar is forced 'always' on' to prevent page shifts when data exceeds bottom of viewable space.
 [( back to top 🔺)](#lightbnb)
 ---
 ## Attributions...
