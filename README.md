@@ -20,8 +20,8 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 --- 
 ## Features...  
 ![](./screenshots/overview-ani.gif)
-- AirBnB type basic clone to work with SQL queries on a Postgres database backend.
-- Quick view of "My Listings" and "My Reservations"
+- AirBnB type basic clone to use for learning SQL queries on a Postgres database.
+- Basic features developed include a quick view of "My Listings", "My Reservations" and "listings" in general.
 (requires logged in user with listings or reservations existing in database)
 - Create Listing to add property listings to the database.
 - Detailed search for city, minimum cost, maximum cost and minimum rating.  All search options are optional.  
@@ -75,16 +75,24 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Quick Start...  
-- npm run local
+- you'll need the Postgress DB installed along with some seed data - details on the seed data can be located here: https://flex-web.compass.lighthouselabs.ca/workbooks/flex-m05w12/activities/765?journey_step=42&workbook=16 
+- install any dependencies: ```npm install```
+- ```npm run local``` to start the server
+- point your browser to ```localhost:3000```  
 [( back to top 🔺)](#lightbnb)
 
 --- 
 ## Detailed Operation...  
-- Clone the github repository to your computer, and follow the instructions above in Quick Start to get to where you can run Tweeter on your computer. 
+- Clone the github repository to your computer, and follow the instructions above in Quick Start to get to where you can run LightBnB on your computer. 
 
-TESTING USER (this way "my listings" works)
+- A suggested test user account is:
+``` 
+Eva Stanley
 email: sebastianguerra@ymail.com
 password: password
+```  
+- Using the above account gets you access to all required features and, assuming the seed data installed, gets you some sample listings, owner listings and reservations under this account.
+
 
 - From the main window, you select any of the nav bar items, or move about the map and click a city to search there.  Alternatively, you can click or tap the seach button to the bottom right of the map and select search criteria.  Mouse over a property listeing to pop out the details window to view number of beds, baths and parking spaces.
 ![](./screenshots/screenshot-main.png)
@@ -97,8 +105,8 @@ password: password
 [( back to top 🔺)](#lightbnb)
 --- 
 ## Known Bugs...
-- Map error - Richmond exists in both BC and NS. Searches in NS will show map pins in BC unfortunately. This is a mapping issue and not related to our SQL search or database information.
-- Vertical scroll bar is forced 'always' on' to prevent page shifts when data exceeds bottom of viewable space.
+- Map error - Richmond exists in both BC and NS. Searches in NS will show map pins in BC unfortunately. This is a quirk in my mapping code and not related to our SQL search or database information.
+- Vertical scroll bar is forced 'always' on' to prevent page shifts when data exceeds bottom of viewable space.  
 [( back to top 🔺)](#lightbnb)
 ---
 ## Attributions...
