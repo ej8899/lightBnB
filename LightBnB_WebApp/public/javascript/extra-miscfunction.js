@@ -6,7 +6,7 @@
 // global vars for GOOGLE MAP API and other cached database info
 let map,mapBounds,mapMarkers,markersArray;
 let currencyMultiplier = 1, averageCostPerNight = 0, graphCostRanges = {};
-const mapsKey='XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
+const mapsKey='AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
 
 
 //
@@ -169,6 +169,18 @@ const toggleModal = function(title,body) {
   $("#modal-title").html(title);
   $("#modal-body").html(body);
   modal.classList.toggle("show-modal");
+ 
+  if(modal.classList.contains("show-modal")) {
+    // add listener (for escape close of modal)
+    document.addEventListener('keyup',modalKeys);
+  } else {
+    document.removeEventListener('keyup',modalKeys);
+  }
+};
+const modalKeys = function(theKey) {
+  if (theKey.key === "Escape") {
+    toggleModal();
+  }
 };
 // modal needs window click handler to clear it
 const windowOnClick = function(event) {

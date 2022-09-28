@@ -157,6 +157,7 @@ const placeMarker = function(location,city,prov) {
   //  check for existing marker here - if so, just return so we're not doing useless work, or burdening map displays
   //
   for (let x = 0; x < markersArray.length; x++) {
+    //alert(markersArray[x].getPosition())
     let tempLoc = JSON.parse(JSON.stringify(markersArray[x].getPosition()));
     // NOTE getPosition() retrns promise - need to process PROPERLY!
 

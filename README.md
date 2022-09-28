@@ -87,8 +87,8 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
 
 - A suggested test user account is:
 ``` 
-Eva Stanley
-email: sebastianguerra@ymail.com
+Austin Beck
+email: makaylahahn@ymail.com
 password: password
 ```  
 - Using the above account gets you access to all required features and, assuming the seed data installed, gets you some sample listings, owner listings and reservations under this account.
@@ -107,6 +107,7 @@ password: password
 ## Known Bugs...
 - Map error - Richmond exists in both BC and NS. Searches in NS will show map pins in BC unfortunately. This is a quirk in my mapping code and not related to our SQL search or database information.
 - Vertical scroll bar is forced 'always' on' to prevent page shifts when data exceeds bottom of viewable space.  
+- This application has been tested on Windows 11 via WSL, Ubuntu Linux 20.04, and MacOS 16 Ventura. All platforms tested with Chrome and Firefox browsers. Please report any bugs found!  
 [( back to top 🔺)](#lightbnb)
 ---
 ## Attributions...
@@ -120,7 +121,7 @@ password: password
 [( back to top 🔺)](#lightbnb)
 ---  
 ## Updates...
-- Get the latest of our version of LightBnB on [Github here](https://github.com/ej8899/lightbnb)!  
+- Get the latest of our version of LightBnB on [Github here](https://github.com/ej8899/lightbnb)!      
 [( back to top 🔺)](#lightbnb)
 ---
 
