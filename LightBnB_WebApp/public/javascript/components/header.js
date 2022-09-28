@@ -48,9 +48,9 @@ $(() => {
   window.header.update = updateHeader;
 
   getMyDetails()
-    .then(function( json ) {
-    updateHeader(json.user);
-  });
+    .then(function(json) {
+      updateHeader(json.user);
+    });
 
   $("header").on("click", '.nav_currency_button', function() {
     currencyHTML = `
@@ -79,7 +79,7 @@ $(() => {
       .then(function(json) {
         propertyListings.addProperties(json.properties);
         views_manager.show('listings');
-    });
+      });
   });
 
   $("header").on("click", '.home', function() {
@@ -88,7 +88,7 @@ $(() => {
       .then(function(json) {
         propertyListings.addProperties(json.properties);
         views_manager.show('listings');
-    });
+      });
   });
 
   $('header').on('click', '.search_button', function() {
@@ -122,5 +122,5 @@ const clearandGet = () => {
     .then(function(json) {
       propertyListings.addProperties(json.properties);
       views_manager.show('listings');
-  });
+    });
 };

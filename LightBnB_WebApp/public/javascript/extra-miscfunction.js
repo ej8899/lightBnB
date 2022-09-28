@@ -6,7 +6,7 @@
 // global vars for GOOGLE MAP API and other cached database info
 let map,mapBounds,mapMarkers,markersArray;
 let currencyMultiplier = 1, averageCostPerNight = 0, graphCostRanges = {};
-const mapsKey='AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
+const mapsKey = 'XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
 
 
 //
@@ -142,11 +142,11 @@ toggleDarkMode('check');
 // scrolling animation activator
 //
 const reveal = () => {
-  var reveals = document.querySelectorAll(".reveal");
-  for (var i = 0; i < reveals.length; i++) {
-    var windowHeight = window.innerHeight;
-    var elementTop = reveals[i].getBoundingClientRect().top;
-    var elementVisible = 150;
+  let reveals = document.querySelectorAll(".reveal");
+  for (let i = 0; i < reveals.length; i++) {
+    let windowHeight = window.innerHeight;
+    let elementTop = reveals[i].getBoundingClientRect().top;
+    let elementVisible = 150;
     if (elementTop < windowHeight - elementVisible) {
       reveals[i].classList.add("active");
     } else {
@@ -170,7 +170,7 @@ const toggleModal = function(title,body) {
   $("#modal-body").html(body);
   modal.classList.toggle("show-modal");
  
-  if(modal.classList.contains("show-modal")) {
+  if (modal.classList.contains("show-modal")) {
     // add listener (for escape close of modal)
     document.addEventListener('keyup',modalKeys);
   } else {
@@ -188,7 +188,7 @@ const windowOnClick = function(event) {
     toggleModal();
   }
 };
-// model listeners for general window click and close button
+// modal listeners for general window click and close button
 closeButton.addEventListener("click", toggleModal);
 window.addEventListener("click", windowOnClick);
 
@@ -223,7 +223,7 @@ const changeCurrency = function(data) {
     break;
   }
   // set the new currency label
-  $(".nav_currency_button").html("$ "+data);
+  $(".nav_currency_button").html("$ " + data);
   clearandGet();
   // save to localStorage (FUTURE USE)
 };
@@ -262,7 +262,7 @@ const getProvinceCounts = (action) => {
     'Yukon'];
     // query database and get a COUNT of listings per province, split apart and save into object for reference
 
-    getCountbyProv()
+  getCountbyProv()
     .then(function(json) {
       let returnString = `<OPTION value="" selected>Any Province</OPTION>`;
       for (const item of json.properties) {
@@ -367,7 +367,7 @@ const filterModal = (provinceCounts) => {
     let data = $(this).serialize();
     checkedValue ? data += "&pricesort=DESC" : data += "&pricesort=ASC";
     
-    getAllListings(data).then(function( json ) {
+    getAllListings(data).then(function(json) {
       propertyListings.addProperties(json.properties);
       views_manager.show('listings');
     });

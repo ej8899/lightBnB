@@ -196,14 +196,6 @@ html {
 .hidden {
   display: none; }
 
-/*# sourceMappingURL=main.css.map */
-
-
-/*
-
-CUSTOM CSS:
-
-*/
 
 
 .hoverbutton:hover {
@@ -214,6 +206,11 @@ CUSTOM CSS:
 }
 
 
+/*
+
+LightBnB Gradient title image
+
+*/
 .gradient-title {
   font-family: "Archivo Black", sans-serif;
   font-weight: normal;
@@ -278,6 +275,8 @@ CUSTOM CSS:
       background-size: 650%;
   }
 }
+
+
 
 .property-listing__details {
   padding-right: 5px;
@@ -452,7 +451,6 @@ input[type="text"] {
 /*
   BACK TO TOP button
 */
-
 .back-top {
   bottom: 30px;
   right: 30px;

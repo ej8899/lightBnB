@@ -34,6 +34,10 @@ const initMap = function() {
     streetViewControl: false,
     fullscreenControl: false,
   };
+  
+  /*
+  ATTEMPT working with dark/light mode toggle of the map.
+  - how best to refresh the map on mode change??
   let mapDarkStyles = {
     styles: [
       { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -116,9 +120,6 @@ const initMap = function() {
       },
     ],
   };
-  /*
-  ATTEMPT working with dark/light mode toggle of the map.
-  - how best to refresh the map on mode change??
   if (document.documentElement.classList.contains("light")) {
     delete mapProp.styles;
   }
@@ -157,15 +158,18 @@ const placeMarker = function(location,city,prov) {
   //  check for existing marker here - if so, just return so we're not doing useless work, or burdening map displays
   //
   for (let x = 0; x < markersArray.length; x++) {
-    //alert(markersArray[x].getPosition())
-    let tempLoc = JSON.parse(JSON.stringify(markersArray[x].getPosition()));
-    // NOTE getPosition() retrns promise - need to process PROPERLY!
-
-    if (location.lat === tempLoc.lat) {
-      if (location.lng === tempLoc.lng) {
-        return;
+    let tempString = JSON.stringify(markersArray[x].getPosition());
+    if (tempString !== undefined) {
+      let tempLoc = JSON.parse(tempString);
+      if (location.lat === tempLoc.lat) {
+        if (location.lng === tempLoc.lng) {
+          return;
+        }
       }
     }
+
+    //let tempLoc = JSON.parse(JSON.stringify(markersArray[x].getPosition()));
+    // NOTE getPosition() retrns promise - need to process PROPERLY!
   }
 
   //
@@ -184,7 +188,7 @@ const placeMarker = function(location,city,prov) {
   mapBounds.extend(marker.position);
   map.setOptions({maxZoom: 15});
   //map.fitBounds(mapBounds);
-  google.maps.event.addListenerOnce(map, "idle", function () {
+  google.maps.event.addListenerOnce(map, "idle", function() {
     if (map.getZoom() > 16) map.setZoom(16);
   });
 
@@ -214,9 +218,9 @@ const placeMarker = function(location,city,prov) {
         //console.log(tempCount)
         this.setIcon(iconDark);
         infoWindow.open(map, this);
-        let iw_container = $(".gm-style-iw").parent();
-        iw_container.stop().hide();
-        iw_container.fadeIn(500);
+        let iwContainer = $(".gm-style-iw").parent();
+        iwContainer.stop().hide();
+        iwContainer.fadeIn(500);
       });
 
       // mouse OUT of MARKER handler
@@ -259,10 +263,13 @@ const clearMapMarkers = function() {
 //  Used to grab details on each city as presented to user
 //  Expensive API calls - this part of project is on hold
 //
+
 const googlePlaceSearch = (city,prov) => {
+  /*
   var config = {
     method: 'get',
     url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Museum%20of%20Contemporary%20Art%20Australia&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=YOUR_API_KEY',
     headers: { }
   };
+  */
 };
