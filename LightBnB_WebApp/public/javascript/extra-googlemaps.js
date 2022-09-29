@@ -167,9 +167,6 @@ const placeMarker = function(location,city,prov) {
         }
       }
     }
-
-    //let tempLoc = JSON.parse(JSON.stringify(markersArray[x].getPosition()));
-    // NOTE getPosition() retrns promise - need to process PROPERLY!
   }
 
   //
