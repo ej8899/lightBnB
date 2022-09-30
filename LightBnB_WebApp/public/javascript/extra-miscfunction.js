@@ -6,7 +6,7 @@
 // global vars for GOOGLE MAP API and other cached database info
 let map,mapBounds,mapMarkers,markersArray;
 let currencyMultiplier = 1, averageCostPerNight = 0, graphCostRanges = {};
-const mapsKey = 'XAIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
+const mapsKey = 'AIzaSyCfRtVUE5xGwJE6CABUHU7P_IZsWdgoK_k'; // remove first X to go live - also in index.html
 
 
 //
