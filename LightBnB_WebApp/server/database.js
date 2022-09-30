@@ -46,7 +46,11 @@ exports.getUserWithId = getUserWithId;
 //
 // extrastretch - get counts per cost per night ranges (for filter/search graph)
 //
-/* NOTE: this code would work and be scalable.... back or front end would have to translate index into 'human' readable form.
+/* NOTE:
+this code would work and be scalable.... back or front end would have to translate index into 'human' readable form.
+Left in place for learning and reference purposes.
+Below (LIVE) code using SELECT CASE is left in place as well for learning and reference.
+
 SELECT
    Floor(cost_per_night/5000) as index,
    Floor(cost_per_night/5000)+5000 as upperBounds,
