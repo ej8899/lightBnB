@@ -1141,7 +1141,7 @@ const getGeo = (city,prov) => {
   // Note: internal DB doesn't have PROVINCE info saved, so we need to check LNG to ensure we have correct entries
   // for NS vs BC "Richmond"
   if (geoLocationDb[city] !== undefined) {
-    console.log("GEO from internal DB");
+    // console.log("GEO from internal DB");
     
     if (city === "Richmond") {
       if (prov === "Nova Scotia") {
@@ -1155,7 +1155,7 @@ const getGeo = (city,prov) => {
       }
     }
   } else {
-    console.log("CAUTION: GEO not in internal db - google API fetch occured");
+    console.log("CAUTION: GEO not in internal db - google API fetch occured - cost incurred");
     fetch(apiURL).then(function(response) {
       // The API call was successful!
       return response.json();

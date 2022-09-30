@@ -198,7 +198,7 @@ const placeMarker = function(location,city,prov) {
   getCountbyCity(city)
     .then(function(json) {
       tempCount = JSON.parse(JSON.stringify(json.properties.count));
-      console.log('count for ' + city + ':' + tempCount);
+      //console.log('count for ' + city + ':' + tempCount);
     })
     .catch((error) => {
       console.log('error occured: ' + error.message);
