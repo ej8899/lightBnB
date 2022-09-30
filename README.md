@@ -34,7 +34,7 @@ LightBnB clones the very, very basic function of AirBnB where we have a pre-buil
   - cleanup nav bar
   - added tooltips on various items
   - add "no listings found" message where appropriate
-  - add currency selection modal (CAD, USD, MXN supported)
+  - add currency selection modal (CAD, USD, MXN, EUR & BZD supported)
   - add average cost per night db query (result) in search modal
   - add confirmation modal to 'create listing' option  
 
@@ -97,7 +97,7 @@ password: password
 - From the main window, you select any of the nav bar items, or move about the map and click a city to search there.  Alternatively, you can click or tap the seach button to the bottom right of the map and select search criteria.  Mouse over a property listeing to pop out the details window to view number of beds, baths and parking spaces.
 ![](./screenshots/screenshot-main.png)
 
-- When in the search window, all shown items are optional searches.  You can drop the province list to search on province, or type a city name (or part of a city name).  Additionaly, you can use the range slider to select a price range to search on and a minimum listing rating.  Finally, a toggle lets you choose to display your search priced low to high, or alternatively, high to low. The bar graph on the price range selection shows the number of listings in each $50 price range, from $1 to $1000. 
+- When in the search window, all shown items are optional searches.  You can drop the province list to search on province, or type a city name (or part of a city name).  Additionaly, you can use the range slider to select a price range to search on and a minimum listing rating.  Finally, a toggle lets you choose to display your search priced low to high, or alternatively, high to low. The bar graph on the price range selection shows the number of listings in each $50 price range, from $1 to $1000. Search modal window can be closed with the upper right "X" icon, pressing escape, or click or tap outside of the modal window.
 ![](./screenshots/screenshot-search-main.png)
 
 - If you need to view listings in a different currency, we currently offer Canadian, US, EUR, BZD and MXN exchanges.  Note this feature is not fully developed through the application yet and incorporated for proof of concept only. 
@@ -121,7 +121,7 @@ password: password
 [( back to top 🔺)](#lightbnb)
 ---  
 ## Updates...
-- Get the latest of our version of LightBnB on [Github here](https://github.com/ej8899/lightbnb)!      
+- Get the latest of our version of LightBnB on [Github here](https://github.com/ej8899/lightbnb).      
 [( back to top 🔺)](#lightbnb)
 ---
 
