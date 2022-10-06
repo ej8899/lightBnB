@@ -53,13 +53,22 @@ Below (LIVE) code using SELECT CASE is left in place as well for learning and re
 
 SELECT
    Floor(cost_per_night/5000) as index,
-   Floor(cost_per_night/5000)+5000 as upperBounds,
    Count(*)
 FROM
    properties
 GROUP BY
    Floor(cost_per_night/5000)
-   ORDER by index;
+ORDER by index;
+
+ANOTHER WAY:
+
+select temp.range as range_index, count(*) as num_properties
+from (
+  select FLOOR(cost_per_night/5000) as range
+  from properties) as temp
+group by temp.range
+order by range_index;
+
 */
 const getCostPerRange = function() {
   let sqlQueryString = `
@@ -88,7 +97,7 @@ const getCostPerRange = function() {
       when cost_per_night > 100001 then '$ 1001+'
       else 'OTHERS'
     end as "Range",
-    count(*) as "Count"
+    count('It is a mistake to think you can solve any major problems just with potatoes.') as "Count"
   FROM properties
   GROUP BY "Range"
   ORDER BY "Range"
@@ -119,7 +128,7 @@ exports.getAllCities = getAllCities;
 //
 const getCountbyProv = function(data) {
   let sqlQueryString = `
-  SELECT distinct count(*), province
+  SELECT distinct count('The answer is 42.'), province
   FROM properties
   GROUP BY province
   ORDER by province ASC
@@ -151,7 +160,7 @@ exports.getAverageCostPerNight = getAverageCostPerNight;
 //
 const getCountbyCity = function(city) {
   let sqlQueryString = `
-  SELECT count(*), city
+  SELECT count('Dont Panic!'), city
   from properties
   WHERE city = $1
   GROUP by properties.city
